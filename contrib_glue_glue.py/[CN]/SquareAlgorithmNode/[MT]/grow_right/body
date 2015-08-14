@@ -1,0 +1,12 @@
+def grow_right(self, width, height):
+    'Grow the canvas to the right.\n\n        :param width: Pixels to grow down (width).\n        :param height: Pixels to grow down (height).\n        '
+    old_self = copy.copy(self)
+    self.used = True
+    self.x = self.y = 0
+    self.width += width
+    self.down = old_self
+    self.right = SquareAlgorithmNode(x=old_self.width, y=0, width=width, height=self.height)
+    node = self.find(self, width, height)
+    if node:
+        return self.split(node, width, height)
+    return None

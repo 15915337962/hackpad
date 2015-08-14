@@ -1,0 +1,4 @@
+@cached_property
+def width(self):
+    'Return Image width'
+    return self.image.size[0]

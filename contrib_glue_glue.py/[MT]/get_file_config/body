@@ -1,0 +1,12 @@
+def get_file_config(path, section='sprite'):
+    'Return, as a dictionary, all the available configuration inside the\n    sprite configuration file on this path.\n\n    :param path: Path where the configuration file is.\n    :param section: The configuration file section that needs to be read.\n    '
+
+    def clean(value):
+        return {'true': True, 'false': False, }.get(value.lower(), value)
+    config = ConfigParser.RawConfigParser()
+    config.read(os.path.join(path, CONFIG_FILENAME))
+    try:
+        keys = config.options(section)
+    except ConfigParser.NoSectionError:
+        return {}
+    return dict([[k, clean(config.get(section, k))] for k in keys])

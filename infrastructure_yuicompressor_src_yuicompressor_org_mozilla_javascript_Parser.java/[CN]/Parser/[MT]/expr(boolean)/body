@@ -1,0 +1,9 @@
+{
+  Node pn=assignExpr(inForInit);
+  while (matchToken(Token.COMMA)) {
+    decompiler.addToken(Token.COMMA);
+    if (compilerEnv.isStrictMode() && !pn.hasSideEffects())     addStrictWarning("msg.no.side.effects","");
+    pn=nf.createBinary(Token.COMMA,pn,assignExpr(inForInit));
+  }
+  return pn;
+}

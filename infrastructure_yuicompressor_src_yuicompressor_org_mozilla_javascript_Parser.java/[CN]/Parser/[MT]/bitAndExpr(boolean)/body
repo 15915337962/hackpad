@@ -1,0 +1,8 @@
+{
+  Node pn=eqExpr(inForInit);
+  while (matchToken(Token.BITAND)) {
+    decompiler.addToken(Token.BITAND);
+    pn=nf.createBinary(Token.BITAND,pn,eqExpr(inForInit));
+  }
+  return pn;
+}

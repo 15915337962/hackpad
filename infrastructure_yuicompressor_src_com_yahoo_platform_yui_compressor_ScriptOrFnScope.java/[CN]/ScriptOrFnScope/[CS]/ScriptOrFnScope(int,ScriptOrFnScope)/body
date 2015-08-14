@@ -1,0 +1,8 @@
+{
+  this.braceNesting=braceNesting;
+  this.parentScope=parentScope;
+  this.subScopes=new ArrayList();
+  if (parentScope != null) {
+    parentScope.subScopes.add(this);
+  }
+}

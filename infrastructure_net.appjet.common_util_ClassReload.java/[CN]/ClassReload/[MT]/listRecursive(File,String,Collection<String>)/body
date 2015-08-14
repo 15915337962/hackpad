@@ -1,0 +1,10 @@
+{
+  for (  File f : dir.listFiles()) {
+    if (f.isDirectory()) {
+      listRecursive(f,prefix + f.getName() + "/",drop);
+    }
+ else {
+      drop.add(prefix + f.getName());
+    }
+  }
+}

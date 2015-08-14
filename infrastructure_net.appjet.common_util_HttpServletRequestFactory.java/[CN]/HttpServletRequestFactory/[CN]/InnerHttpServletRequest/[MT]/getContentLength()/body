@@ -1,0 +1,3 @@
+{
+  return ((getHeader("Content-Length") == null) ? (body == null ? 0 : body.length()) : getIntHeader("Content-Length"));
+}

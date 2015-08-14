@@ -1,0 +1,5 @@
+{
+  String saved=currentJsDocComment;
+  currentJsDocComment=null;
+  return saved;
+}

@@ -1,0 +1,5 @@
+@cached_property
+def absolute_width(self):
+    'Return the total width of the image taking count of the margin,\n        padding and ratio.'
+    margin = int(self.sprite.config.margin)
+    return round_up((self.width + ((self.horizontal_padding + (2 * margin)) * self.sprite.max_ratio)))

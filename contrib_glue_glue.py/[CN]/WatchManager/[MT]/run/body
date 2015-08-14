@@ -1,0 +1,14 @@
+def run(self):
+    ' Start watching the path for changes '
+    signal.signal(signal.SIGINT, self.signal_handler)
+    while True:
+        try:
+            try:
+                current_hash = self.generate_hash()
+                if (self.last_hash != current_hash):
+                    self.action()
+                self.last_hash = current_hash
+            except Exception:
+                pass
+        finally:
+            time.sleep(0.2)

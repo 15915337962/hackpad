@@ -1,0 +1,12 @@
+def __getattr__(self, name):
+    'Return the first available configuration value for this key. This\n        method always prioritizes the command line configuration. If this key\n        is not available within any configuration dictionary, it returns the\n        default value\n\n        :param name: Configuration property name.\n        '
+    if (name in self._cache):
+        return self._cache[name]
+    try:
+        value = super(ConfigManager, self).__getattribute__(('_%s' % name))()
+        self._cache[name] = value
+        return value
+    except AttributeError:
+        pass
+    self._cache[name] = self.find(name)
+    return self._cache[name]

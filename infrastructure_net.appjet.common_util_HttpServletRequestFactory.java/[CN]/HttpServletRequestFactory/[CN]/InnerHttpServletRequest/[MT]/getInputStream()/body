@@ -1,0 +1,9 @@
+{
+  return new javax.servlet.ServletInputStream(){
+    private java.io.InputStream istream=new java.io.ByteArrayInputStream(body.getBytes());
+    public int read() throws java.io.IOException {
+      return istream.read();
+    }
+  }
+;
+}

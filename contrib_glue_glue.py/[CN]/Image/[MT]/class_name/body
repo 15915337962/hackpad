@@ -1,0 +1,24 @@
+@cached_property
+def class_name(self):
+    'Return the CSS class name for this file.\n\n        This CSS class name will have the following format:\n\n        ``.[namespace]-[sprite-namespace]-[image_name]{ ... }``\n\n        The image_name will only contain alphanumeric characters,\n        ``-`` and ``_``. The default namespace is ``sprite``, but it could\n        be overridden using the ``--namespace`` optional argument.\n\n        * ``animals/cat.png`` will be ``.sprite-animals-cat``\n        * ``animals/cow_20.png`` will be ``.sprite-animals-cow``\n        * ``animals/cat_hover.png`` will be ``.sprite-animals-cat:hover``\n        * ``animals/cow_20_hover.png`` will be ``.sprite-animals-cow:hover``\n\n        The separator used is also configurable using the ``--separator``\n        option. For a camelCase representation of the CSS class name use\n        ``camelcase`` as separator.\n        '
+    name = self.filename
+    if (not self.sprite.manager.config.ignore_filename_paddings):
+        padding_info_name = '-'.join(self._padding_info)
+        if padding_info_name:
+            padding_info_name = ('_%s' % padding_info_name)
+        name = name.replace(padding_info_name, '')
+    if self.pseudo:
+        name = name.replace(('_%s' % self.pseudo[1:]), '')
+    name = re.sub('[^\\w\\-_]', '', name)
+    separator = self.sprite.manager.config.separator
+    name = ('%s%s' % (name, self.pseudo))
+    namespace = [name]
+    if self.sprite.manager.config.sprite_namespace:
+        sprite_name = re.sub('[^\\w\\-_]', '', self.sprite.name)
+        namespace.insert(0, (self.sprite.manager.config.sprite_namespace % {'sprite': sprite_name, }))
+    if self.sprite.manager.config.namespace:
+        namespace.insert(0, self.sprite.manager.config.namespace)
+    if (separator == CAMELCASE_SEPARATOR):
+        namespace = [((n[:1].title() + n[1:]) if (i > 0) else n) for (i, n) in enumerate(namespace)]
+        separator = ''
+    return separator.join(namespace)

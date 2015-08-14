@@ -1,0 +1,5 @@
+def __init__(self, path, action):
+    '\n        :param path: Path to watch.\n        :param action: Action to run when a change happens.\n        '
+    self.action = action
+    self.path = path
+    self.last_hash = None

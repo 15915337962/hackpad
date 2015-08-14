@@ -1,0 +1,4 @@
+{
+  this.compilerEnv=compilerEnv;
+  this.errorReporter=errorReporter;
+}

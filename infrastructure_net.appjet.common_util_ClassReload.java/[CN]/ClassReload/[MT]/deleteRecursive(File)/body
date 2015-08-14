@@ -1,0 +1,14 @@
+{
+  if (f.exists()) {
+    File[] files=f.listFiles();
+    for (    File g : files) {
+      if (g.isDirectory()) {
+        deleteRecursive(g);
+      }
+ else {
+        g.delete();
+      }
+    }
+  }
+  return f.delete();
+}

@@ -1,0 +1,15 @@
+def __init__(self, name, sprite, path=None):
+    'Image constructor\n\n        :param name: Image name.\n        :param sprite: :class:`~Sprite` instance for this image.'
+    self.x = None
+    self.y = None
+    self.name = name
+    self.sprite = sprite
+    (self.filename, self.format) = name.rsplit('.', 1)
+    if ('_' in self.filename):
+        pseudo = set(self.filename.split('_')).intersection(PSEUDO_CLASSES)
+        self.pseudo = ((':%s' % list(pseudo)[(-1)]) if pseudo else '')
+    else:
+        self.pseudo = ''
+    self.path = (path or os.path.join(sprite.path, name))
+    with open(self.path, 'rb') as image_file:
+        self._data = image_file.read()

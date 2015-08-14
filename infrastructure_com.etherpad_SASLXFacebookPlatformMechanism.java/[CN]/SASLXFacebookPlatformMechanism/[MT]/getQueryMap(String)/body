@@ -1,0 +1,9 @@
+{
+  Map<String,String> map=new HashMap<String,String>();
+  String[] params=query.split("\\&");
+  for (  String param : params) {
+    String[] fields=param.split("=",2);
+    map.put(fields[0],(fields.length > 1 ? fields[1] : null));
+  }
+  return map;
+}

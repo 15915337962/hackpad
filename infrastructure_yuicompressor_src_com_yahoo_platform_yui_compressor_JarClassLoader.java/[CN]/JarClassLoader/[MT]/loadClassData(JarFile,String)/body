@@ -1,0 +1,25 @@
+{
+  String entryName=className.replace('.','/') + ".class";
+  JarEntry jarEntry=findJarEntry(jarFile,entryName);
+  if (jarEntry == null) {
+    return null;
+  }
+  int index=className.lastIndexOf('.');
+  if (index >= 0) {
+    String packageName=className.substring(0,index);
+    if (getPackage(packageName) == null) {
+      definePackage(packageName,"","","","","","",null);
+    }
+  }
+  Class c=null;
+  try {
+    InputStream is=jarFile.getInputStream(jarEntry);
+    ByteArrayOutputStream os=new ByteArrayOutputStream();
+    copy(is,os);
+    byte[] bytes=os.toByteArray();
+    c=defineClass(className,bytes,0,bytes.length);
+  }
+ catch (  IOException ioe) {
+  }
+  return c;
+}

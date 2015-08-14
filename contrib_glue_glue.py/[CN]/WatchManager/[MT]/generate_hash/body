@@ -1,0 +1,9 @@
+def generate_hash(self):
+    ' Return a hash of files and modification times to determine if a\n        change has occourred.'
+    hash_list = []
+    for (root, dirs, files) in os.walk(self.path):
+        for f in sorted([f for f in files if (not f.startswith('.'))]):
+            hash_list.append(os.path.join(root, f))
+            hash_list.append(str(os.path.getmtime(os.path.join(root, f))))
+    hash_list = ''.join(hash_list)
+    return hashlib.sha1(hash_list).hexdigest()

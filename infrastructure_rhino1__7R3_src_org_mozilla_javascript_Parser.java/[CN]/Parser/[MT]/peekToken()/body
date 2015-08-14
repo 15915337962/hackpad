@@ -1,0 +1,24 @@
+{
+  if (currentFlaggedToken != Token.EOF) {
+    return currentToken;
+  }
+  int lineno=ts.getLineno();
+  int tt=ts.getToken();
+  boolean sawEOL=false;
+  while (tt == Token.EOL || tt == Token.COMMENT) {
+    if (tt == Token.EOL) {
+      lineno++;
+      sawEOL=true;
+    }
+ else {
+      sawEOL=false;
+      if (compilerEnv.isRecordingComments()) {
+        recordComment(lineno);
+      }
+    }
+    tt=ts.getToken();
+  }
+  currentToken=tt;
+  currentFlaggedToken=tt | (sawEOL ? TI_AFTER_EOL : 0);
+  return currentToken;
+}

@@ -1,0 +1,5 @@
+{
+  Vector<java.util.Locale> v=new Vector<java.util.Locale>();
+  v.add(java.util.Locale.US);
+  return v.elements();
+}

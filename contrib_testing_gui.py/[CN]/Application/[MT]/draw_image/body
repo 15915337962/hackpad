@@ -1,0 +1,25 @@
+def draw_image(self):
+    (reference_path, result_path, diff_path) = self.get_paths()
+    file_path = diff_path
+    if (self.image_type == 0):
+        file_path = reference_path
+    elif (self.image_type == 1):
+        file_path = result_path
+    browser_name = os.path.basename(os.path.dirname(file_path))
+    test_name = os.path.splitext(os.path.basename(file_path))[0]
+    self.master.title(((browser_name + ': ') + test_name))
+    try:
+        image = Image.open(file_path)
+    except:
+        return
+    self.tkimage = ImageTk.PhotoImage(image)
+    if self.text1:
+        self.text1.pack_forget()
+        self.scroll.pack_forget()
+    self.text1 = Text(root, width=1000, height=800)
+    self.scroll = Scrollbar(self.master, command=self.text1.yview)
+    self.tkimage = ImageTk.PhotoImage(image)
+    self.text1.insert(END, '\n')
+    self.text1.image_create(END, image=self.tkimage)
+    self.scroll.pack(side=RIGHT, fill=Y)
+    self.text1.pack(side=LEFT)

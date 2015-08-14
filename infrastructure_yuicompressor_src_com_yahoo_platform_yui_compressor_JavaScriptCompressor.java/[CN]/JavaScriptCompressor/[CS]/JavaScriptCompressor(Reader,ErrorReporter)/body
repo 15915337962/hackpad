@@ -1,0 +1,4 @@
+{
+  this.logger=reporter;
+  this.tokens=parse(in,reporter);
+}

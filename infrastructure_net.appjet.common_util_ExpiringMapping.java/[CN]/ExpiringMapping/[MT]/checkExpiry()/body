@@ -1,0 +1,11 @@
+{
+  while (timeToKey.size() > 0) {
+    long oldestTime=timeToKey.firstKey();
+    if (hasExpired(oldestTime,timeToKey.size())) {
+      remove(timeToKey.get(oldestTime));
+    }
+ else {
+      break;
+    }
+  }
+}

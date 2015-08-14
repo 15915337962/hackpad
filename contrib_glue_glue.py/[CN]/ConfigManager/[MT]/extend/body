@@ -1,0 +1,3 @@
+def extend(self, config):
+    'Return a new :class:`~ConfigManager` instance with this new config\n                         inside the sources list.\n\n        :param config: Dictionary with the new config.\n        '
+    return self.__class__(config, priority=self.priority, defaults=self.defaults, *self.sources)

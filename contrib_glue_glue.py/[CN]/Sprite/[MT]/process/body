@@ -1,0 +1,11 @@
+def process(self):
+    'Process a sprite path searching for all the images and then\n        allocate all of them in the most appropriate position.\n        '
+    if self._processed:
+        return
+    algorithm = ALGORITHMS.get(self.config.algorithm)
+    if (not algorithm):
+        raise InvalidImageAlgorithmError(self.config.algorithm)
+    self.algorithm = algorithm()
+    self.images = sorted(self.images, reverse=(self.config.ordering[0] != '-'))
+    self.algorithm.process(self)
+    self._processed = True

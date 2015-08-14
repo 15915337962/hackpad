@@ -1,0 +1,9 @@
+def get_paths(self):
+    diff_path = self.diff_images[self.index]
+    filename = os.path.basename(diff_path)
+    diff_parent_dir = os.path.basename(os.path.dirname(diff_path))
+    reference_file_dir = os.path.join(screenshots_reference_dir, diff_parent_dir)
+    reference_path = os.path.join(reference_file_dir, filename)
+    result_file_dir = os.path.join(screenshots_results_dir, diff_parent_dir)
+    result_path = os.path.join(result_file_dir, filename)
+    return (reference_path, result_path, diff_path)

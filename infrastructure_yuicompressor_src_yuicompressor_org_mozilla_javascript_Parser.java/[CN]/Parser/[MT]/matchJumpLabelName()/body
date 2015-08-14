@@ -1,0 +1,16 @@
+{
+  Node label=null;
+  int tt=peekTokenOrEOL();
+  if (tt == Token.NAME) {
+    consumeToken();
+    String name=ts.getString();
+    decompiler.addName(name);
+    if (labelSet != null) {
+      label=(Node)labelSet.get(name);
+    }
+    if (label == null) {
+      reportError("msg.undef.label");
+    }
+  }
+  return label;
+}

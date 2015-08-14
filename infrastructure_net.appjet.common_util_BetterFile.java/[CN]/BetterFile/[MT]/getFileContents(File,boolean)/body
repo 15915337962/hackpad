@@ -1,0 +1,11 @@
+{
+  FileInputStream in;
+  try {
+    in=new FileInputStream(f);
+  }
+ catch (  FileNotFoundException e) {
+    if (t)     throw e;
+    return null;
+  }
+  return getStreamContents(in);
+}

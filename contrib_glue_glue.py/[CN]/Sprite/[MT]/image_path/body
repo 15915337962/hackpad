@@ -1,0 +1,7 @@
+def image_path(self, ratio=1, full=True):
+    reference = self.__get_reference(ratio)
+    'Return the output path for the image file.\n        If full, prepend the img output path, if not only return the filename.\n        :param ratio: Ratio.\n        '
+    filename = ('%s%s.png' % (self.filename, reference))
+    if full:
+        return os.path.join(self.manager.output_path('img'), filename)
+    return filename

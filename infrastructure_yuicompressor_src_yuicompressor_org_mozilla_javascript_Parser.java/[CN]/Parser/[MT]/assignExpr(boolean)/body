@@ -1,0 +1,10 @@
+{
+  Node pn=condExpr(inForInit);
+  int tt=peekToken();
+  if (Token.FIRST_ASSIGN <= tt && tt <= Token.LAST_ASSIGN) {
+    consumeToken();
+    decompiler.addToken(tt);
+    pn=nf.createAssignment(tt,pn,assignExpr(inForInit));
+  }
+  return pn;
+}

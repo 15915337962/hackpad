@@ -1,0 +1,4 @@
+{
+  SASLAuthentication.registerSASLMechanism(NAME,SASLXFacebookPlatformMechanism.class);
+  SASLAuthentication.supportSASLMechanism(NAME,0);
+}

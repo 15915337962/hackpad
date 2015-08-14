@@ -1,0 +1,42 @@
+def save_css(self):
+    'Create the CSS or LESS file for this sprite.'
+    if self.config.no_css:
+        return
+    format = ('less' if self.config.less else 'css')
+    output_path = self.manager.output_path('css')
+    filename = ('%s.%s' % (self.filename, format))
+    css_filename = os.path.join(output_path, filename)
+    hash_line = ('/* glue: %s hash: %s */\n' % (__version__, self.hash))
+    try:
+        assert (not self.config.force)
+        with open(css_filename, 'r') as existing_css:
+            first_line = existing_css.readline()
+            assert (first_line == hash_line)
+            self.manager.log(("Already exists '%s' %s file..." % (self.name, format)))
+            return
+    except Exception:
+        pass
+    self.manager.log(("Creating '%s' %s file..." % (self.name, format)))
+    self.process()
+    css_file = open(css_filename, 'w')
+    css_file.write(hash_line)
+    class_names = [('.%s' % i.class_name) for i in self.images]
+    class_names = [cn for cn in class_names if ((':' not in cn) or (cn.rsplit(':')[0] not in class_names))]
+    class_names = ',\n'.join(class_names)
+    template = self.config.global_template.decode('unicode-escape')
+    css_file.write((template % {'all_classes': class_names, 'sprite_url': self.image_url(), }))
+    margin = int(self.config.margin)
+    for image in self.images:
+        x = ('%spx' % round_up((((image.x * (-1)) - (margin * self.max_ratio)) / self.max_ratio)))
+        y = ('%spx' % round_up((((image.y * (-1)) - (margin * self.max_ratio)) / self.max_ratio)))
+        height = ('%spx' % round_up(((image.height / self.max_ratio) + image.vertical_padding)))
+        width = ('%spx' % round_up(((image.width / self.max_ratio) + image.horizontal_padding)))
+        template = self.config.each_template.decode('unicode-escape')
+        css_file.write((template % {'class_name': ('.%s' % image.class_name), 'identifier': image.class_name, 'sprite_url': self.image_url(), 'height': height, 'width': width, 'y': y, 'x': x, }))
+    if (len(self.ratios) > 1):
+        canvas_size = zip(('width', 'height'), map((lambda s: ('%spx' % int((s / self.max_ratio)))), self.canvas_size))
+        for ratio in self.ratios:
+            if (ratio != 1):
+                data = dict(ratio=ratio, ratio_fraction=nearest_fration(ratio), sprite_url=self.image_url(ratio), all_classes=class_names, **dict(canvas_size))
+                css_file.write((self.config.ratio_template % data))
+    css_file.close()

@@ -1,0 +1,6 @@
+{
+  ScalaSourceClassLoader sscl=new ScalaSourceClassLoader(getParent());
+  sscl.initCompilerArgs(compilerArgs.toArray(new String[0]));
+  sscl.compile(sourceFileList.toArray(new String[0]));
+  return sscl;
+}

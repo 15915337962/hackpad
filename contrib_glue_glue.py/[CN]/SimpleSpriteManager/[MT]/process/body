@@ -1,0 +1,4 @@
+def process(self):
+    'Process a single folder and create one sprite. It works the\n        same way as :class:`~ProjectSpriteManager`, but only for one folder.\n\n        This is the default manager.\n        '
+    self.process_sprite(path=self.path, name=os.path.basename(self.path))
+    self.save()

@@ -1,0 +1,8 @@
+{
+  Node pn=bitAndExpr(inForInit);
+  while (matchToken(Token.BITXOR)) {
+    decompiler.addToken(Token.BITXOR);
+    pn=nf.createBinary(Token.BITXOR,pn,bitAndExpr(inForInit));
+  }
+  return pn;
+}

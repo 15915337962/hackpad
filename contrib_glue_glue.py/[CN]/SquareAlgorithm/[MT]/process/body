@@ -1,0 +1,10 @@
+def process(self, sprite):
+    root = SquareAlgorithmNode(width=sprite.images[0].absolute_width, height=sprite.images[0].absolute_height)
+    for image in sprite.images:
+        node = root.find(root, image.absolute_width, image.absolute_height)
+        if node:
+            node = root.split(node, image.absolute_width, image.absolute_height)
+        else:
+            node = root.grow(image.absolute_width, image.absolute_height)
+        image.x = node.x
+        image.y = node.y

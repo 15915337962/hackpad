@@ -1,0 +1,4 @@
+{
+  internalIn=new PushbackInputStream(in,BOM_SIZE);
+  this.defaultEnc=defaultEnc;
+}

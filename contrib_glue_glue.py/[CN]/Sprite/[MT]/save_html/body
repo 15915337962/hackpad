@@ -1,0 +1,14 @@
+def save_html(self):
+    'Create the HTML file for this sprite.'
+    self.manager.log(("Creating '%s' html file..." % self.name))
+    output_path = self.manager.output_path('css')
+    filename = ('%s.html' % self.filename)
+    html_filename = os.path.join(output_path, filename)
+    format = ('less' if self.config.less else 'css')
+    html_file = open(html_filename, 'w')
+    class_names = [i.class_name for i in self.images if (':' not in i.class_name)]
+    sprite_template = TEST_HTML_SPRITE_TEMPLATE.decode('unicode-escape')
+    sprites_html = [(sprite_template % {'class_name': c, }) for c in class_names]
+    file_template = TEST_HTML_TEMPLATE.decode('unicode-escape')
+    html_file.write((file_template % {'sprites': ''.join(sprites_html), 'css_url': ('%s.%s' % (self.filename, format)), 'version': __version__, }))
+    html_file.close()

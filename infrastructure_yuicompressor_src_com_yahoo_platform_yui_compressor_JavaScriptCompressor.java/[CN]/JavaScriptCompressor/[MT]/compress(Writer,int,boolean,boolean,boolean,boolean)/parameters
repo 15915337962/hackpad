@@ -1,0 +1,6 @@
+Writer out
+int linebreak
+boolean munge
+boolean verbose
+boolean preserveAllSemiColons
+boolean disableOptimizations

@@ -1,0 +1,22 @@
+{
+  int tt;
+  Node pn;
+  tt=peekToken();
+  if (tt == Token.NEW) {
+    consumeToken();
+    decompiler.addToken(Token.NEW);
+    pn=nf.createCallOrNew(Token.NEW,memberExpr(false));
+    if (matchToken(Token.LP)) {
+      decompiler.addToken(Token.LP);
+      argumentList(pn);
+    }
+    tt=peekToken();
+    if (tt == Token.LC) {
+      nf.addChildToBack(pn,primaryExpr());
+    }
+  }
+ else {
+    pn=primaryExpr();
+  }
+  return memberExprTail(allowCallSyntax,pn);
+}

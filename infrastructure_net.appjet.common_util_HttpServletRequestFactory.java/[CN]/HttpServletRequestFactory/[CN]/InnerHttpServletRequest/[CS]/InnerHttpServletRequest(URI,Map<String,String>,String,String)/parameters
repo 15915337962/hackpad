@@ -1,0 +1,4 @@
+URI uri
+Map<String,String> headers
+String method
+String body

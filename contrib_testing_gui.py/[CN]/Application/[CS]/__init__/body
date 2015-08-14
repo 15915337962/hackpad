@@ -1,0 +1,26 @@
+def __init__(self, master):
+    self.width = 1024
+    self.height = 768
+    self.index = 0
+    self.text1 = None
+    self.diff_images = []
+    self.frame = None
+    self.master = master
+    self.image_type = 1
+    for f in os.walk(screenshots_diffs_dir):
+        for filename in f[2]:
+            if (os.path.splitext(filename)[1] != '.png'):
+                continue
+            self.diff_images.append(os.path.join(f[0], filename))
+    self.frame = Frame(master)
+    self.frame.pack(side='top', expand=1, fill='x')
+    self.master.bind('<Up>', self.rotate_image_up)
+    self.master.bind('<Down>', self.rotate_image_down)
+    self.master.bind('<Left>', self.prev_image)
+    self.master.bind('<Right>', self.next_image)
+    if len(self.diff_images):
+        self.createWidgets()
+        self.draw_image()
+    else:
+        print 'All good!'
+        self.master.destroy()

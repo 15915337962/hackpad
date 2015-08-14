@@ -1,0 +1,12 @@
+@cached_property
+def canvas_size(self):
+    'Return the width and height for this sprite canvas'
+    width = height = 0
+    for image in self.images:
+        x = (image.x + image.absolute_width)
+        y = (image.y + image.absolute_height)
+        if (width < x):
+            width = x
+        if (height < y):
+            height = y
+    return (round_up(width), round_up(height))

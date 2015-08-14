@@ -1,0 +1,9 @@
+def validate(self):
+    'Validate this sprite cheking that all images will have different\n        CCS class names.\n        '
+    class_names = [i.class_name for i in self.images]
+    if (len(set(class_names)) != len(self.images)):
+        dup = [i for i in self.images if (class_names.count(i.class_name) > 1)]
+        raise MultipleImagesWithSameNameError(dup)
+    for image in self.images:
+        self.manager.log(('\t %s => .%s' % (image.name, image.class_name)))
+    return True

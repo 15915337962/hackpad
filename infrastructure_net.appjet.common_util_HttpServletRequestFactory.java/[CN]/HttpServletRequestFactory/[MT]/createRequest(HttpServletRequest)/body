@@ -1,0 +1,9 @@
+{
+  Map<String,String> headers=new java.util.HashMap<String,String>();
+  Enumeration<String> headerNames=(Enumeration<String>)req.getHeaderNames();
+  while (headerNames.hasMoreElements()) {
+    String e=headerNames.nextElement();
+    headers.put(e,req.getHeader(e));
+  }
+  return createRequest(req.getRequestURL() + (req.getQueryString() != null ? "?" + req.getQueryString() : ""),headers,req.getMethod(),null);
+}

@@ -1,0 +1,14 @@
+{
+  StringBuilder out=new StringBuilder();
+  byte[] b=new byte[4096];
+  try {
+    for (int n; (n=in.read(b)) != -1; ) {
+      out.append(new String(b,0,0,n));
+    }
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    return null;
+  }
+  return out.toString();
+}

@@ -1,0 +1,11 @@
+{
+  FileInputStream in;
+  try {
+    in=new FileInputStream(f);
+  }
+ catch (  FileNotFoundException e) {
+    e.printStackTrace();
+    return null;
+  }
+  return getBinaryStreamContents(in);
+}

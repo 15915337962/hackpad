@@ -1,0 +1,8 @@
+{
+  Node switchNode=nf.createSwitch(switchSelector,lineno);
+  if (loopAndSwitchSet == null) {
+    loopAndSwitchSet=new ObjArray();
+  }
+  loopAndSwitchSet.push(switchNode);
+  return switchNode;
+}

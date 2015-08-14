@@ -1,0 +1,15 @@
+{
+  byte[] buf=new byte[1024];
+  boolean done=false;
+  while (!done) {
+    int numRead=from.read(buf);
+    if (numRead < 0) {
+      done=true;
+    }
+ else {
+      to.write(buf,0,numRead);
+    }
+  }
+  from.close();
+  to.close();
+}

@@ -1,0 +1,13 @@
+{
+  this.munge=munge;
+  this.verbose=verbose;
+  processStringLiterals(this.tokens,!disableOptimizations);
+  if (!disableOptimizations) {
+    optimizeObjectMemberAccess(this.tokens);
+    optimizeObjLitMemberDecl(this.tokens);
+  }
+  buildSymbolTree();
+  mungeSymboltree();
+  StringBuffer sb=printSymbolTree(linebreak,preserveAllSemiColons);
+  out.write(sb.toString());
+}

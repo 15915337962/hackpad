@@ -1,0 +1,9 @@
+{
+  try {
+    return URLDecoder.decode(s,"UTF-8");
+  }
+ catch (  java.io.UnsupportedEncodingException e) {
+    System.err.println("Unsupported character encoding! UTF-8");
+    return s;
+  }
+}

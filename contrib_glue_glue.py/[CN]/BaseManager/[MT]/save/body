@@ -1,0 +1,11 @@
+def save(self):
+    'Save all the sprites inside this manager.'
+    for sprite in self.sprites:
+        self.log(("Processing '%s':" % sprite.name))
+        sprite.validate()
+    self.validate()
+    for sprite in self.sprites:
+        sprite.save_image()
+        sprite.save_css()
+        if sprite.manager.config.html:
+            sprite.save_html()

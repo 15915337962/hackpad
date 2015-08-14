@@ -1,0 +1,4 @@
+{
+  loopSet.pop();
+  loopAndSwitchSet.pop();
+}

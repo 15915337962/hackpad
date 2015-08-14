@@ -1,0 +1,6 @@
+def __init__(self, path, config, output=None):
+    'BaseManager constructor.\n\n        :param path: Sprite path.\n        :param config: :class:`~ConfigManager` instance with all the\n                       configuration for this sprite.\n        :param output: output dir.\n        '
+    self.path = path
+    self.config = config
+    self.output = output
+    self.sprites = []

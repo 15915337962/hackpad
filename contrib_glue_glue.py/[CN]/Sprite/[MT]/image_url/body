@@ -1,0 +1,14 @@
+def image_url(self, ratio=1):
+    'Return the sprite image url.\n\n        :param ratio: Ratio.\n        '
+    if self.config.url:
+        image_path = self.image_path(ratio, full=False)
+        url = os.path.join(self.config.url, image_path)
+    else:
+        image_path = self.image_path(ratio)
+        url = os.path.relpath(image_path, self.manager.output_path('css'))
+        url = os.path.normpath(url)
+    if (os.name == 'nt'):
+        url = url.replace('\\', '/')
+    if self.config.cachebuster:
+        url = ('%s?%s' % (url, self.hash[:6]))
+    return url

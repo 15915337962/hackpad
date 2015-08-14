@@ -1,0 +1,12 @@
+{
+  int idx=0;
+  int count=0;
+  int length=haystack.length();
+  while (idx < length) {
+    char c=haystack.charAt(idx++);
+    if (c == needle) {
+      count++;
+    }
+  }
+  return count;
+}

@@ -1,0 +1,28 @@
+{
+  memberTypeFlags|=Node.ATTRIBUTE_FLAG;
+  int tt=nextToken();
+switch (tt) {
+case Token.NAME:
+{
+      String s=ts.getString();
+      decompiler.addName(s);
+      pn=propertyName(pn,s,memberTypeFlags);
+    }
+  break;
+case Token.MUL:
+decompiler.addName("*");
+pn=propertyName(pn,"*",memberTypeFlags);
+break;
+case Token.LB:
+decompiler.addToken(Token.LB);
+pn=nf.createElementGet(pn,null,expr(false),memberTypeFlags);
+mustMatchToken(Token.RB,"msg.no.bracket.index");
+decompiler.addToken(Token.RB);
+break;
+default :
+reportError("msg.no.name.after.xmlAttr");
+pn=nf.createPropertyGet(pn,null,"?",memberTypeFlags);
+break;
+}
+return pn;
+}

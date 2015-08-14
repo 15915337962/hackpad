@@ -1,0 +1,3 @@
+{
+  return new InnerHttpServletRequest(new URI(uri),headers,method,body);
+}

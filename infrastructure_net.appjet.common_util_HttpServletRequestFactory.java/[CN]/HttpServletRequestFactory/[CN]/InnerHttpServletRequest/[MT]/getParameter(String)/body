@@ -1,0 +1,6 @@
+{
+  String[] vals=getParameterValues(name);
+  if (vals == null)   return null;
+  if (vals.length < 1)   return null;
+  return vals[0];
+}

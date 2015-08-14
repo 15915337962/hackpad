@@ -1,0 +1,8 @@
+{
+  if (keyToValue.containsKey(key)) {
+    return keyToValue.get(key).getValue();
+  }
+ else {
+    return null;
+  }
+}

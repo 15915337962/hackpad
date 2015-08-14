@@ -1,0 +1,29 @@
+{
+  int indexOrHash=(name != null ? name.hashCode() : index);
+  Slot[] slotsLocalRef=slots;
+  if (count != 0) {
+    int tableSize=slots.length;
+    int slotIndex=getSlotIndex(tableSize,indexOrHash);
+    Slot prev=slotsLocalRef[slotIndex];
+    Slot slot=prev;
+    while (slot != null) {
+      if (slot.indexOrHash == indexOrHash && (slot.name == name || (name != null && name.equals(slot.name)))) {
+        break;
+      }
+      prev=slot;
+      slot=slot.next;
+    }
+    if (slot != null && (slot.getAttributes() & PERMANENT) == 0) {
+      count--;
+      if (prev == slot) {
+        slotsLocalRef[slotIndex]=slot.next;
+      }
+ else {
+        prev.next=slot.next;
+      }
+      slot.wasDeleted=true;
+      slot.value=null;
+      slot.name=null;
+    }
+  }
+}

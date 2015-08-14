@@ -1,0 +1,11 @@
+{
+  JavaScriptIdentifier identifier;
+  while (scope != null) {
+    identifier=scope.getIdentifier(symbol);
+    if (identifier != null) {
+      return identifier;
+    }
+    scope=scope.getParentScope();
+  }
+  return null;
+}

@@ -1,0 +1,12 @@
+def update_button_states(self):
+    (reference_path, result_path, diff_path) = self.get_paths()
+    self.prev_btn.config(state=(NORMAL if (self.index > 0) else DISABLED))
+    self.next_btn.config(state=(NORMAL if (self.index < (len(self.diff_images) - 1)) else DISABLED))
+    self.ref.config(state=(NORMAL if os.path.exists(diff_path) else DISABLED))
+    self.ref['text'] = ('Update ref.' if os.path.exists(diff_path) else 'updated')
+    if (self.image_type == 0):
+        self.type_lbl['text'] = 'reference'
+    elif (self.image_type == 1):
+        self.type_lbl['text'] = 'result'
+    elif (self.image_type == 2):
+        self.type_lbl['text'] = 'diff'

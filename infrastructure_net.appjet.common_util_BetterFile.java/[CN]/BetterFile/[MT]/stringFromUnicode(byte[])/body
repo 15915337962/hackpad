@@ -1,0 +1,3 @@
+{
+  return getReaderString(new BufferedReader(new UnicodeReader(new ByteArrayInputStream(bytes),null)));
+}

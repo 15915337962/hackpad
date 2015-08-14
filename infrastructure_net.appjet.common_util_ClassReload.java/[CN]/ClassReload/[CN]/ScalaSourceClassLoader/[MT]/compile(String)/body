@@ -1,0 +1,32 @@
+{
+  sourceFileList=new ArrayList<String>();
+  for (  String a : sourceFiles)   sourceFileList.add(a);
+  sourceFileMap.clear();
+  outputFileMap.clear();
+  File tempDir=makeTemporaryDir();
+  try {
+    List<String> argsToPass=new ArrayList<String>();
+    argsToPass.add("-d");
+    argsToPass.add(tempDir.getAbsolutePath());
+    argsToPass.addAll(compilerArgs);
+    for (    String sf : sourceFileList) {
+      File f=new File(sf).getAbsoluteFile();
+      sourceFileMap.put(f,f.lastModified());
+      argsToPass.add(f.getPath());
+    }
+    String[] argsToPassArray=argsToPass.toArray(new String[0]);
+    int compileResult=invokeFSC(argsToPassArray);
+    if (compileResult != 0) {
+      successfulCompile=false;
+      return false;
+    }
+    for (    String outputFile : listRecursive(tempDir)) {
+      outputFileMap.put(outputFile,getFileBytes(new File(tempDir,outputFile)));
+    }
+    successfulCompile=true;
+    return true;
+  }
+  finally {
+    deleteRecursive(tempDir);
+  }
+}

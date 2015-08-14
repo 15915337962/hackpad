@@ -1,0 +1,20 @@
+{
+  int tt=currentFlaggedToken;
+  if (tt == Token.EOF) {
+    while ((tt=ts.getToken()) == Token.SPECIALCOMMENT) {
+      decompiler.addJScriptConditionalComment(ts.getString());
+    }
+    if (tt == Token.EOL) {
+      do {
+        tt=ts.getToken();
+        if (tt == Token.SPECIALCOMMENT) {
+          decompiler.addJScriptConditionalComment(ts.getString());
+        }
+      }
+ while (tt == Token.EOL || tt == Token.SPECIALCOMMENT);
+      tt|=TI_AFTER_EOL;
+    }
+    currentFlaggedToken=tt;
+  }
+  return tt & CLEAR_TI_MASK;
+}

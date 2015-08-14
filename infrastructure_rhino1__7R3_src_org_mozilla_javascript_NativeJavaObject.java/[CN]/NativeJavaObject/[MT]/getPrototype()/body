@@ -1,0 +1,6 @@
+{
+  if (prototype == null && javaObject instanceof String) {
+    return TopLevel.getBuiltinPrototype(parent,TopLevel.Builtins.String);
+  }
+  return prototype;
+}

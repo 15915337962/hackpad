@@ -1,0 +1,12 @@
+{
+  Node loop=nf.createLoopNode(loopLabel,ts.getLineno());
+  if (loopSet == null) {
+    loopSet=new ObjArray();
+    if (loopAndSwitchSet == null) {
+      loopAndSwitchSet=new ObjArray();
+    }
+  }
+  loopSet.push(loop);
+  loopAndSwitchSet.push(loop);
+  return loop;
+}

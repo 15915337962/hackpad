@@ -1,0 +1,5 @@
+{
+  MessageDigest md=MessageDigest.getInstance("MD5");
+  md.update(text.getBytes("utf-8"),0,text.length());
+  return convertToHex(md.digest());
+}

@@ -1,0 +1,13 @@
+{
+  StringBuffer sb=new StringBuffer();
+  Pattern p=Pattern.compile("\\s*filter:\\s*progid:DXImageTransform.Microsoft.Matrix\\(([^\\)]+)\\);");
+  Matcher m=p.matcher(css);
+  while (m.find()) {
+    String token=m.group(1);
+    preservedTokens.add(token);
+    String preserver="___YUICSSMIN_PRESERVED_TOKEN_" + (preservedTokens.size() - 1) + "___";
+    m.appendReplacement(sb,"filter:progid:DXImageTransform.Microsoft.Matrix(" + preserver + ");");
+  }
+  m.appendTail(sb);
+  return sb.toString();
+}

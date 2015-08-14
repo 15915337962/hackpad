@@ -1,0 +1,8 @@
+{
+  if (verbose) {
+    if (showDebugString) {
+      message=message + "\n" + getDebugString(10);
+    }
+    logger.warning(message,null,-1,null,-1);
+  }
+}

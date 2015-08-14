@@ -1,0 +1,3 @@
+{
+  hints.put(variableName,variableType);
+}

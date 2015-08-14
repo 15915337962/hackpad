@@ -1,0 +1,9 @@
+{
+  offset=0;
+  braceNesting=0;
+  scopes.clear();
+  indexedScopes.clear();
+  indexedScopes.put(new Integer(0),globalScope);
+  mode=BUILDING_SYMBOL_TREE;
+  parseScope(globalScope);
+}

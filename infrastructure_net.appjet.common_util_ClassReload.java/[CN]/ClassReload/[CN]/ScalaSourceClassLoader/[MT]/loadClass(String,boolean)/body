@@ -1,0 +1,19 @@
+{
+  Class<?> c=findLoadedClass(name);
+  if (c == null) {
+    String fileName=name.replace('.','/') + ".class";
+    if (outputFileMap.containsKey(fileName)) {
+      byte b[]=outputFileMap.get(fileName);
+      c=defineClass(name,b,0,b.length);
+    }
+  }
+  if (c != null) {
+    if (resolve) {
+      resolveClass(c);
+    }
+    return c;
+  }
+ else {
+    return super.loadClass(name,resolve);
+  }
+}

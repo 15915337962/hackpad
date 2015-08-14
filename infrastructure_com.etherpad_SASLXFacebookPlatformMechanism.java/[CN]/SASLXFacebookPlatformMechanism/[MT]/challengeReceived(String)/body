@@ -1,0 +1,25 @@
+{
+  byte[] response=null;
+  if (challenge != null) {
+    String decodedChallenge=new String(Base64.decode(challenge));
+    Map<String,String> parameters=getQueryMap(decodedChallenge);
+    String version="1.0";
+    String nonce=parameters.get("nonce");
+    String method=parameters.get("method");
+    long callId=new GregorianCalendar().getTimeInMillis();
+    String sig="api_key=" + apiKey + "call_id="+ callId+ "method="+ method+ "nonce="+ nonce+ "access_token="+ sessionKey+ "v="+ version;
+    try {
+      sig=md5(sig);
+    }
+ catch (    NoSuchAlgorithmException e) {
+      throw new IllegalStateException(e);
+    }
+    String composedResponse="api_key=" + URLEncoder.encode(apiKey,"utf-8") + "&call_id="+ callId+ "&method="+ URLEncoder.encode(method,"utf-8")+ "&nonce="+ URLEncoder.encode(nonce,"utf-8")+ "&access_token="+ URLEncoder.encode(sessionKey,"utf-8")+ "&v="+ URLEncoder.encode(version,"utf-8")+ "&sig="+ URLEncoder.encode(sig,"utf-8");
+    response=composedResponse.getBytes("utf-8");
+  }
+  String authenticationText="";
+  if (response != null) {
+    authenticationText=Base64.encodeBytes(response,Base64.DONT_BREAK_LINES);
+  }
+  getSASLAuthentication().send(new Response(authenticationText));
+}

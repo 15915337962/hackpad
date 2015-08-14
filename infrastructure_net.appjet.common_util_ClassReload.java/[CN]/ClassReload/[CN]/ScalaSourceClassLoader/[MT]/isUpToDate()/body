@@ -1,0 +1,9 @@
+{
+  for (  Map.Entry<File,Long> entry : sourceFileMap.entrySet()) {
+    long mod=entry.getKey().lastModified();
+    if (mod == 0 || mod > entry.getValue()) {
+      return false;
+    }
+  }
+  return true;
+}

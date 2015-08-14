@@ -1,0 +1,8 @@
+{
+  Node pn=andExpr(inForInit);
+  if (matchToken(Token.OR)) {
+    decompiler.addToken(Token.OR);
+    pn=nf.createBinary(Token.OR,pn,orExpr(inForInit));
+  }
+  return pn;
+}

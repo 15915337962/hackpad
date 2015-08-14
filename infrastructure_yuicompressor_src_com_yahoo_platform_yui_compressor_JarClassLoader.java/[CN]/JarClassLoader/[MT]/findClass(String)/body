@@ -1,0 +1,23 @@
+{
+  Class c=null;
+  String jarPath=getJarPath();
+  if (jarPath != null) {
+    JarFile jarFile=null;
+    try {
+      jarFile=new JarFile(jarPath);
+      c=loadClassData(jarFile,name);
+    }
+ catch (    IOException ioe) {
+    }
+ finally {
+      if (jarFile != null) {
+        try {
+          jarFile.close();
+        }
+ catch (        IOException ioe) {
+        }
+      }
+    }
+  }
+  return c;
+}

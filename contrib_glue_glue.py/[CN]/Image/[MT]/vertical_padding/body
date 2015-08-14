@@ -1,0 +1,4 @@
+@cached_property
+def vertical_padding(self):
+    'Return the vertical padding for this image.'
+    return (self.padding[0] + self.padding[2])

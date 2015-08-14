@@ -1,0 +1,6 @@
+def __init__(self, *args, **kwargs):
+    'ConfigManager constructor.\n\n        :param *args: List of config dictionaries. The order of this list is\n                      important because as soon as a config property\n                      is available it will be returned.\n        :param defaults: Dictionary with the default configuration.\n        :param priority: Dictionary with the command line configuration. This\n                         configuration will override any other from any source.\n        '
+    self.defaults = kwargs.get('defaults', {})
+    self.priority = kwargs.get('priority', {})
+    self.sources = list(args)
+    self._cache = {}

@@ -1,0 +1,4 @@
+@cached_property
+def horizontal_padding(self):
+    'Return the horizontal padding for this image.'
+    return (self.padding[1] + self.padding[3])

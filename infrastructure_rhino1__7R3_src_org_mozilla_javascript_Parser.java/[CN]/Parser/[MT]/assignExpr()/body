@@ -1,0 +1,26 @@
+{
+  int tt=peekToken();
+  if (tt == Token.YIELD) {
+    return returnOrYield(tt,true);
+  }
+  AstNode pn=condExpr();
+  tt=peekToken();
+  if (Token.FIRST_ASSIGN <= tt && tt <= Token.LAST_ASSIGN) {
+    consumeToken();
+    String jsdoc=getAndResetJsDoc();
+    markDestructuring(pn);
+    int opPos=ts.tokenBeg;
+    int opLineno=ts.getLineno();
+    pn=new Assignment(tt,pn,assignExpr(),opPos);
+    pn.setLineno(opLineno);
+    if (jsdoc != null) {
+      pn.setJsDoc(jsdoc);
+    }
+  }
+ else   if (tt == Token.SEMI && pn.getType() == Token.GETPROP) {
+    if (currentJsDocComment != null) {
+      pn.setJsDoc(getAndResetJsDoc());
+    }
+  }
+  return pn;
+}

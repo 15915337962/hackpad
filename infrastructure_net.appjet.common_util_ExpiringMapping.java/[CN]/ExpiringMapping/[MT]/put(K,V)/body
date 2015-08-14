@@ -1,0 +1,10 @@
+{
+  TimeStampedValue old=keyToValue.get(key);
+  if (old != null) {
+    timeToKey.remove(old.getTimeStamp());
+  }
+  TimeStampedValue newVal=new TimeStampedValue(value);
+  keyToValue.put(key,newVal);
+  timeToKey.put(newVal.getTimeStamp(),key);
+  checkExpiry();
+}

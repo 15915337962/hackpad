@@ -1,0 +1,11 @@
+{
+  try {
+    File f=File.createTempFile("ajclsreload","").getAbsoluteFile();
+    if (!f.delete())     throw new RuntimeException("error creating temp dir");
+    if (!f.mkdir())     throw new RuntimeException("error creating temp dir");
+    return f;
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("error creating temp dir");
+  }
+}

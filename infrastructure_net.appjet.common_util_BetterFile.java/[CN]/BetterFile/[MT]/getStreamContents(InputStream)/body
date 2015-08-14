@@ -1,0 +1,16 @@
+{
+  InputStreamReader in=new InputStreamReader(instream,java.nio.charset.Charset.forName("UTF-8"));
+  StringBuilder out=new StringBuilder();
+  char[] b=new char[4096];
+  try {
+    for (int n; (n=in.read(b)) != -1; ) {
+      out.append(b,0,n);
+    }
+    in.close();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    return null;
+  }
+  return out.toString();
+}

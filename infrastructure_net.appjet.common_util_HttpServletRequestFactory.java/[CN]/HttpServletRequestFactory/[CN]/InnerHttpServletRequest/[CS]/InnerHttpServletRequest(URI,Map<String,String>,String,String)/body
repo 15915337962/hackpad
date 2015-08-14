@@ -1,0 +1,13 @@
+{
+  this.method=method;
+  this.host=uri.getHost();
+  this.scheme=uri.getScheme();
+  this.port=uri.getPort();
+  this.path=uri.getRawPath();
+  this.queryString=uri.getRawQuery();
+  extractParameters();
+  extractHeaders(headers);
+  this.headers.put("host",host);
+  if (body != null)   this.headers.put("content-length",Integer.toString(body.length()));
+  this.body=body;
+}

@@ -1,0 +1,8 @@
+{
+  byte[] buf=new byte[1024];
+  while (true) {
+    int len=in.read(buf);
+    if (len < 0)     break;
+    out.write(buf,0,len);
+  }
+}

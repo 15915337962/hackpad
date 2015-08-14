@@ -1,0 +1,10 @@
+{
+  Class c=findLoadedClass(name);
+  if (c == null) {
+    c=findClass(name);
+  }
+  if (c == null) {
+    c=ClassLoader.getSystemClassLoader().loadClass(name);
+  }
+  return c;
+}

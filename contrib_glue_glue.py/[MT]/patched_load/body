@@ -1,0 +1,18 @@
+def patched_load(self):
+    if (self.im and self.palette and self.palette.dirty):
+        apply(self.im.putpalette, self.palette.getdata())
+        self.palette.dirty = 0
+        self.palette.rawmode = None
+        try:
+            trans = self.info['transparency']
+        except KeyError:
+            self.palette.mode = 'RGB'
+        else:
+            try:
+                for (i, a) in enumerate(trans):
+                    self.im.putpalettealpha(i, a)
+            except TypeError:
+                self.im.putpalettealpha(trans, 0)
+            self.palette.mode = 'RGBA'
+    if self.im:
+        return self.im.pixel_access(self.readonly)

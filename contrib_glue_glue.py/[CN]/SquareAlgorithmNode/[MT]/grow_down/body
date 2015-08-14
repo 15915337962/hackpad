@@ -1,0 +1,12 @@
+def grow_down(self, width, height):
+    'Grow the canvas down.\n\n        :param width: Pixels to grow down (width).\n        :param height: Pixels to grow down (height).\n        '
+    old_self = copy.copy(self)
+    self.used = True
+    self.x = self.y = 0
+    self.height += height
+    self.right = old_self
+    self.down = SquareAlgorithmNode(x=0, y=old_self.height, width=self.width, height=height)
+    node = self.find(self, width, height)
+    if node:
+        return self.split(node, width, height)
+    return None

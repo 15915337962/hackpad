@@ -1,0 +1,7 @@
+def find(self, node, width, height):
+    'Find a node to allocate this image size (width, height).\n\n        :param node: Node to search in.\n        :param width: Pixels to grow down (width).\n        :param height: Pixels to grow down (height).\n        '
+    if node.used:
+        return (self.find(node.right, width, height) or self.find(node.down, width, height))
+    elif ((node.width >= width) and (node.height >= height)):
+        return node
+    return None

@@ -1,0 +1,17 @@
+{
+  parameters=new HashMap<String,String[]>();
+  if (queryString == null)   return;
+  Map<String,List<String>> params=new HashMap<String,List<String>>();
+  String[] pairs=queryString.split("&");
+  for (  String s : pairs) {
+    String[] kv=s.split("=",2);
+    if (!params.containsKey(kv[0])) {
+      params.put(decodeUTF8(kv[0]),new ArrayList<String>());
+    }
+    params.get(decodeUTF8(kv[0])).add(decodeUTF8(kv[1]));
+  }
+  String[] stringArray=new String[0];
+  for (  Map.Entry<String,List<String>> e : params.entrySet()) {
+    parameters.put(e.getKey(),e.getValue().toArray(stringArray));
+  }
+}

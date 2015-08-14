@@ -1,0 +1,38 @@
+@cached_property
+def image(self):
+    'Return a Pil representation of this image '
+    io = StringIO.StringIO(self._data)
+    try:
+        try:
+            source_image = PImage.open(io)
+            img = PImage.new('RGBA', source_image.size, (0, 0, 0, 0))
+            if (source_image.mode == 'L'):
+                alpha = source_image.split()[0]
+                transparency = source_image.info.get('transparency')
+                mask = PImage.eval(alpha, (lambda a: (0 if (a == transparency) else 255)))
+                img.paste(source_image, (0, 0), mask=mask)
+            else:
+                img.paste(source_image, (0, 0))
+        except IOError as e:
+            raise PILUnavailableError(e.args[0].split()[1])
+    finally:
+        io.close()
+    if self.sprite.config.crop:
+        (width, height) = img.size
+        maxx = maxy = 0
+        minx = miny = sys.maxint
+        for x in xrange(width):
+            for y in xrange(height):
+                if ((y > miny) and (y < maxy) and (maxx == x)):
+                    continue
+                if (img.getpixel((x, y)) != TRANSPARENT):
+                    if (x < minx):
+                        minx = x
+                    if (x > maxx):
+                        maxx = x
+                    if (y < miny):
+                        miny = y
+                    if (y > maxy):
+                        maxy = y
+        img = img.crop((minx, miny, (maxx + 1), (maxy + 1)))
+    return img

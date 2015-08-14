@@ -1,0 +1,10 @@
+{
+  try {
+    writer.flush();
+    ostream.flush();
+  }
+ catch (  java.io.IOException e) {
+    return "(An IOException occurred while getting output: " + e.getMessage() + ")";
+  }
+  return ostream.toString();
+}

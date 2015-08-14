@@ -1,0 +1,3 @@
+{
+  return getBinaryFileContents(new File(filename));
+}

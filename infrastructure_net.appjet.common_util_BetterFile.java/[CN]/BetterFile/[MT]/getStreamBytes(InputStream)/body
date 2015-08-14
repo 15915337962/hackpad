@@ -1,0 +1,15 @@
+{
+  byte[] b=new byte[8192];
+  ByteArrayOutputStream baos=new ByteArrayOutputStream(16384);
+  try {
+    for (int n; (n=instream.read(b)) != -1; ) {
+      baos.write(b,0,n);
+    }
+    instream.close();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    return null;
+  }
+  return baos.toByteArray();
+}

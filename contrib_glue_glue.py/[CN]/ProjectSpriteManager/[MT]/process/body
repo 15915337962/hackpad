@@ -1,0 +1,11 @@
+def process(self):
+    'Process a path searching for folders that contain images.\n        Every folder will be a new sprite with all the images inside.\n\n        The filename of the image can also contain information about the\n        padding needed around the image.\n\n        * ``filename.png`` will have the default padding (10px).\n        * ``filename_20.png`` will have 20px all around the image.\n        * ``filename_1-2-3.png`` will have 1px 2px 3px 2px around the image.\n        * ``filename_1-2-3-4.png`` will have 1px 2px 3px 4px around the image.\n\n        The generated CSS file will have a CSS class for every image found\n        inside the sprites folder. These CSS class names will have the\n        following format:\n\n        ``.[namespace]-[sprite_name]-[image_name]{ ... }``\n\n        The image_name will only contain alphanumeric characters,\n        ``-`` and ``_``. The default namespace is ``sprite``, but it could be\n        overridden using the ``--namespace`` optional argument.\n\n\n        * ``animals/cat.png`` CSS class will be ``.sprite-animals-cat``\n        * ``animals/cow_20.png`` CSS class will be ``.sprite-animals-cow``\n\n        If two images have the same name,\n        :class:`~MultipleImagesWithSameNameError` will be raised.\n\n        This is not the default manager. It is only used if you use\n        the ``--project`` argument.\n        '
+    for sprite_name in sorted(os.listdir(self.path)):
+        path = os.path.join(self.path, sprite_name)
+        if sprite_name.startswith('.'):
+            continue
+        if (os.path.isdir(path) or (os.path.islink(path) and self.config.follow_links)):
+            self.process_sprite(path=path, name=sprite_name)
+    if (not self.sprites):
+        raise NoSpritesFoldersFoundError(self.path)
+    self.save()

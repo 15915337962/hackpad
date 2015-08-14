@@ -1,0 +1,5 @@
+@cached_property
+def absolute_height(self):
+    'Return the total height of the image taking count of the margin,\n        padding and ratio.\n        '
+    margin = int(self.sprite.config.margin)
+    return round_up((self.height + ((self.vertical_padding + (2 * margin)) * self.sprite.max_ratio)))

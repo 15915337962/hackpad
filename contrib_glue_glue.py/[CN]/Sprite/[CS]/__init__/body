@@ -1,0 +1,15 @@
+def __init__(self, name, path, manager):
+    'Sprite constructor.\n\n        :param name: Sprite name.\n        :param path: Sprite path\n        :param manager: Sprite manager. :class:`~ProjectSpriteManager` or\n                        :class:`SimpleSpriteManager`'
+    self.name = name
+    self.manager = manager
+    self.images = []
+    self.path = path
+    self._processed = False
+    self.config = manager.config.extend(get_file_config(self.path))
+    ratios = self.config.ratios.split(',')
+    self.ratios = set([float(r.strip()) for r in ratios if r.strip()])
+    if self.config.retina:
+        self.ratios.add(2.0)
+    self.ratios.add(1.0)
+    self.ratios = sorted(self.ratios)
+    self.images = self._locate_images()

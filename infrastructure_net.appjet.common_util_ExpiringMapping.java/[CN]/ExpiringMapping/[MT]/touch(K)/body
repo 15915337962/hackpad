@@ -1,0 +1,6 @@
+{
+  TimeStampedValue old=keyToValue.get(key);
+  if (old != null) {
+    put(key,old.getValue());
+  }
+}

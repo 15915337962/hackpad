@@ -1,0 +1,10 @@
+{
+  Enumeration entries=jarFile.entries();
+  while (entries.hasMoreElements()) {
+    JarEntry entry=(JarEntry)entries.nextElement();
+    if (entry.getName().equals(entryName)) {
+      return entry;
+    }
+  }
+  return null;
+}

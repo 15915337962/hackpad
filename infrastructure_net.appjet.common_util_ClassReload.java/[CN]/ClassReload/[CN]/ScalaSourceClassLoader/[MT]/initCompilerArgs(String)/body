@@ -1,0 +1,4 @@
+{
+  compilerArgs=new ArrayList<String>();
+  for (  String a : args)   compilerArgs.add(a);
+}

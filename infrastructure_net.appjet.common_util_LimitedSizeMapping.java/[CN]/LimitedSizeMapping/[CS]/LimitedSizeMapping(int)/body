@@ -1,0 +1,8 @@
+{
+  super(new ExpiryPolicy(){
+    public boolean hasExpired(    long timeStamp,    long now,    int rank){
+      return rank > maxSize;
+    }
+  }
+);
+}

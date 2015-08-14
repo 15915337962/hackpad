@@ -1,0 +1,4 @@
+{
+  varcount++;
+  return varcount;
+}

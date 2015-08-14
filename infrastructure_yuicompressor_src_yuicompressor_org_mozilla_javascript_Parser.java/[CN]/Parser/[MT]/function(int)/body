@@ -1,0 +1,110 @@
+{
+  int syntheticType=functionType;
+  int baseLineno=ts.getLineno();
+  int functionSourceStart=decompiler.markFunctionStart(functionType);
+  String name;
+  Node memberExprNode=null;
+  if (matchToken(Token.NAME)) {
+    name=ts.getString();
+    decompiler.addName(name);
+    if (!matchToken(Token.LP)) {
+      if (compilerEnv.isAllowMemberExprAsFunctionName()) {
+        Node memberExprHead=nf.createName(name);
+        name="";
+        memberExprNode=memberExprTail(false,memberExprHead);
+      }
+      mustMatchToken(Token.LP,"msg.no.paren.parms");
+    }
+  }
+ else   if (matchToken(Token.LP)) {
+    name="";
+  }
+ else {
+    name="";
+    if (compilerEnv.isAllowMemberExprAsFunctionName()) {
+      memberExprNode=memberExpr(false);
+    }
+    mustMatchToken(Token.LP,"msg.no.paren.parms");
+  }
+  if (memberExprNode != null) {
+    syntheticType=FunctionNode.FUNCTION_EXPRESSION;
+  }
+  boolean nested=insideFunction();
+  FunctionNode fnNode=nf.createFunction(name);
+  if (nested || nestingOfWith > 0) {
+    fnNode.itsIgnoreDynamicScope=true;
+  }
+  int functionIndex=currentScriptOrFn.addFunction(fnNode);
+  int functionSourceEnd;
+  ScriptOrFnNode savedScriptOrFn=currentScriptOrFn;
+  currentScriptOrFn=fnNode;
+  int savedNestingOfWith=nestingOfWith;
+  nestingOfWith=0;
+  Hashtable savedLabelSet=labelSet;
+  labelSet=null;
+  ObjArray savedLoopSet=loopSet;
+  loopSet=null;
+  ObjArray savedLoopAndSwitchSet=loopAndSwitchSet;
+  loopAndSwitchSet=null;
+  boolean savedHasReturnValue=hasReturnValue;
+  int savedFunctionEndFlags=functionEndFlags;
+  Node body;
+  try {
+    decompiler.addToken(Token.LP);
+    if (!matchToken(Token.RP)) {
+      boolean first=true;
+      do {
+        if (!first)         decompiler.addToken(Token.COMMA);
+        first=false;
+        mustMatchToken(Token.NAME,"msg.no.parm");
+        String s=ts.getString();
+        if (fnNode.hasParamOrVar(s)) {
+          addWarning("msg.dup.parms",s);
+        }
+        fnNode.addParam(s);
+        decompiler.addName(s);
+      }
+ while (matchToken(Token.COMMA));
+      mustMatchToken(Token.RP,"msg.no.paren.after.parms");
+    }
+    decompiler.addToken(Token.RP);
+    mustMatchToken(Token.LC,"msg.no.brace.body");
+    decompiler.addEOL(Token.LC);
+    body=parseFunctionBody();
+    mustMatchToken(Token.RC,"msg.no.brace.after.body");
+    if (compilerEnv.isStrictMode() && !body.hasConsistentReturnUsage()) {
+      String msg=name.length() > 0 ? "msg.no.return.value" : "msg.anon.no.return.value";
+      addStrictWarning(msg,name);
+    }
+    decompiler.addToken(Token.RC);
+    functionSourceEnd=decompiler.markFunctionEnd(functionSourceStart);
+    if (functionType != FunctionNode.FUNCTION_EXPRESSION) {
+      decompiler.addToken(Token.EOL);
+    }
+  }
+  finally {
+    hasReturnValue=savedHasReturnValue;
+    functionEndFlags=savedFunctionEndFlags;
+    loopAndSwitchSet=savedLoopAndSwitchSet;
+    loopSet=savedLoopSet;
+    labelSet=savedLabelSet;
+    nestingOfWith=savedNestingOfWith;
+    currentScriptOrFn=savedScriptOrFn;
+  }
+  fnNode.setEncodedSourceBounds(functionSourceStart,functionSourceEnd);
+  fnNode.setSourceName(sourceURI);
+  fnNode.setBaseLineno(baseLineno);
+  fnNode.setEndLineno(ts.getLineno());
+  if (name != null) {
+    int index=currentScriptOrFn.getParamOrVarIndex(name);
+    if (index >= 0 && index < currentScriptOrFn.getParamCount())     addStrictWarning("msg.var.hides.arg",name);
+  }
+  Node pn=nf.initFunction(fnNode,functionIndex,body,syntheticType);
+  if (memberExprNode != null) {
+    pn=nf.createAssignment(Token.ASSIGN,memberExprNode,pn);
+    if (functionType != FunctionNode.FUNCTION_EXPRESSION) {
+      pn=nf.createExprStatementNoReturn(pn,baseLineno);
+    }
+  }
+  return pn;
+}

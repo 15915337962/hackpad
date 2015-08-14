@@ -1,0 +1,4 @@
+{
+  Matcher m=SIMPLE_IDENTIFIER_NAME_PATTERN.matcher(s);
+  return (m.matches() && !reserved.contains(s));
+}

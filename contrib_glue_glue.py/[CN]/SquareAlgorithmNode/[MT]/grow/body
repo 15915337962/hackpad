@@ -1,0 +1,15 @@
+def grow(self, width, height):
+    ' Grow the canvas to the most appropriate direction.\n\n        :param width: Pixels to grow down (width).\n        :param height: Pixels to grow down (height).\n        '
+    can_grow_d = (width <= self.width)
+    can_grow_r = (height <= self.height)
+    should_grow_r = (can_grow_r and (self.height >= (self.width + width)))
+    should_grow_d = (can_grow_d and (self.width >= (self.height + height)))
+    if should_grow_r:
+        return self.grow_right(width, height)
+    elif should_grow_d:
+        return self.grow_down(width, height)
+    elif can_grow_r:
+        return self.grow_right(width, height)
+    elif can_grow_d:
+        return self.grow_down(width, height)
+    return None

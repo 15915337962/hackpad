@@ -1,0 +1,7 @@
+def nearest_fration(value):
+    '\n    Return the nearest fraction.\n    If fraction.Fraction is not available, return a fraction.\n\n    Note: used for Opera CSS pixel-ratio media queries.\n    '
+    try:
+        from fraction import Fraction
+        return str(Fraction(value))
+    except ImportError:
+        return ('%i/100' % int((float(value) * 100)))

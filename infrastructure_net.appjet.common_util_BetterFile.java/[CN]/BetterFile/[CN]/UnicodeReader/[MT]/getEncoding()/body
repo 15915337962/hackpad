@@ -1,0 +1,4 @@
+{
+  if (internalIn2 == null)   return null;
+  return internalIn2.getEncoding();
+}

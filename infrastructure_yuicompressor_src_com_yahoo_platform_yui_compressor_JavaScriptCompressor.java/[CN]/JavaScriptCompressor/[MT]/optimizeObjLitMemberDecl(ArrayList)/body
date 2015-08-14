@@ -1,0 +1,15 @@
+{
+  String tv;
+  int i, length;
+  JavaScriptToken token;
+  for (i=0, length=tokens.size(); i < length; i++) {
+    if (((JavaScriptToken)tokens.get(i)).getType() == Token.OBJECTLIT && i > 0 && ((JavaScriptToken)tokens.get(i - 1)).getType() == Token.STRING) {
+      token=(JavaScriptToken)tokens.get(i - 1);
+      tv=token.getValue();
+      tv=tv.substring(1,tv.length() - 1);
+      if (isValidIdentifier(tv)) {
+        tokens.set(i - 1,new JavaScriptToken(Token.NAME,tv));
+      }
+    }
+  }
+}

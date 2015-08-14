@@ -1,0 +1,9 @@
+{
+  ArrayList result=new ArrayList();
+  ScriptOrFnScope scope=this;
+  while (scope != null) {
+    result.addAll(scope.getUsedSymbols());
+    scope=scope.parentScope;
+  }
+  return result;
+}

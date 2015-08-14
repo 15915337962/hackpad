@@ -1,0 +1,3 @@
+{
+  return getFileContents(new File(filename),t);
+}

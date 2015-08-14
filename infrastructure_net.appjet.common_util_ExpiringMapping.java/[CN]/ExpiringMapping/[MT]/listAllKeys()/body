@@ -1,0 +1,7 @@
+{
+  List<K> keyList=new java.util.ArrayList<K>(timeToKey.size());
+  for (  Map.Entry<Long,K> entry : timeToKey.entrySet()) {
+    keyList.add(entry.getValue());
+  }
+  return Collections.unmodifiableList(keyList);
+}

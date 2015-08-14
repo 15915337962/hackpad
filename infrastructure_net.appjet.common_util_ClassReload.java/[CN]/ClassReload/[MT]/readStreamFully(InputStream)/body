@@ -1,0 +1,6 @@
+{
+  InputStream from=new BufferedInputStream(in);
+  ByteArrayOutputStream to=new ByteArrayOutputStream(in.available());
+  ferry(from,to);
+  return to.toByteArray();
+}

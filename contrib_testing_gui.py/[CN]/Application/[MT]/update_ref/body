@@ -1,0 +1,5 @@
+def update_ref(self):
+    (reference_path, result_path, diff_path) = self.get_paths()
+    shutil.copyfile(result_path, reference_path)
+    os.remove(diff_path)
+    self.update_button_states()

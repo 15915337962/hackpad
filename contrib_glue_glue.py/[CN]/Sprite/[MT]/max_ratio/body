@@ -1,0 +1,4 @@
+@cached_property
+def max_ratio(self):
+    ' Return the maximum ratio '
+    return max(self.ratios)

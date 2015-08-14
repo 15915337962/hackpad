@@ -1,0 +1,6 @@
+def find(self, name):
+    for source in self._sources:
+        value = source.get(name)
+        if (value is not None):
+            return value
+    return self.defaults.get(name)

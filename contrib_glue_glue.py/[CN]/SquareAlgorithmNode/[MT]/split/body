@@ -1,0 +1,6 @@
+def split(self, node, width, height):
+    'Split the node to allocate a new one of this size.\n\n        :param node: Node to be splitted.\n        :param width: New node width.\n        :param height: New node height.\n        '
+    node.used = True
+    node.down = SquareAlgorithmNode(x=node.x, y=(node.y + height), width=node.width, height=(node.height - height))
+    node.right = SquareAlgorithmNode(x=(node.x + width), y=node.y, width=(node.width - width), height=height)
+    return node

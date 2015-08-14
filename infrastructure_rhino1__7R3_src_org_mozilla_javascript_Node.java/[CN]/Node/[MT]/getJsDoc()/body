@@ -1,0 +1,3 @@
+{
+  return (String)getProp(JSDOC_PROP);
+}

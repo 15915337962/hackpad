@@ -1,0 +1,19 @@
+{
+  if (apiKeyAndSecret == null || sessionKey == null) {
+    throw new IllegalArgumentException("Invalid parameters");
+  }
+  String[] keyArray=apiKeyAndSecret.split("\\|",2);
+  if (keyArray.length < 2) {
+    throw new IllegalArgumentException("API key or session key is not present");
+  }
+  this.apiKey=keyArray[0];
+  this.applicationSecret=keyArray[1];
+  this.sessionKey=sessionKey;
+  this.authenticationId=sessionKey;
+  this.password=applicationSecret;
+  this.hostname=host;
+  String[] mechanisms={NAME};
+  Map<String,String> props=new HashMap<String,String>();
+  this.sc=Sasl.createSaslClient(mechanisms,null,"xmpp",host,props,this);
+  authenticate();
+}

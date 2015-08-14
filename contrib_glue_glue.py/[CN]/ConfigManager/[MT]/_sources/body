@@ -1,0 +1,3 @@
+@cached_property
+def _sources(self):
+    return ([self.priority] + self.sources)

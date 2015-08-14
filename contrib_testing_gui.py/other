@@ -1,0 +1,14 @@
+from Tkinter import *
+import Image
+import ImageTk
+import os
+import shutil
+current_dir = os.path.dirname(os.path.realpath(__file__))
+screenshots_dir = os.path.join(current_dir, 'screenshots')
+screenshots_reference_dir = os.path.join(screenshots_dir, 'reference')
+screenshots_results_dir = os.path.join(screenshots_dir, 'results')
+screenshots_diffs_dir = os.path.join(screenshots_dir, 'diffs')
+global_cfg_path = os.path.join(current_dir, 'global.cfg')
+root = Tk()
+app = Application(root)
+root.mainloop()

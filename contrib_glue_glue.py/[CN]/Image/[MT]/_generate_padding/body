@@ -1,0 +1,15 @@
+def _generate_padding(self, padding):
+    'Return a 4-elements list with the desired padding.\n\n        :param padding: Padding as a list or a raw string representing\n                        the padding for this image.'
+    if (type(padding) == str):
+        padding = padding.replace('px', '').split()
+    if (len(padding) == 4):
+        padding = padding
+    elif (len(padding) == 3):
+        padding = (padding + [padding[1]])
+    elif (len(padding) == 2):
+        padding = (padding * 2)
+    elif (len(padding) == 1):
+        padding = (padding * 4)
+    else:
+        padding = ([DEFAULT_SETTINGS['padding']] * 4)
+    return map(int, padding)

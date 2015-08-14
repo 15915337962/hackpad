@@ -1,0 +1,4 @@
+def next_image(self, event=None):
+    self.index = min((len(self.diff_images) - 1), (self.index + 1))
+    self.draw_image()
+    self.update_button_states()

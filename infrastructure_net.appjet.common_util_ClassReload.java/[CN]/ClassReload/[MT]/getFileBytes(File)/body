@@ -1,0 +1,8 @@
+{
+  try {
+    return readStreamFully(new FileInputStream(f));
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

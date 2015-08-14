@@ -1,0 +1,5 @@
+{
+  if (parentScope != null) {
+    markedForMunging=false;
+  }
+}

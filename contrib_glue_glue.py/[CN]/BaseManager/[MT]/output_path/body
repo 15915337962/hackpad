@@ -1,0 +1,11 @@
+def output_path(self, format):
+    'Return the path where all the generated files will be saved.\n\n        :param format: File format.\n        '
+    if ((format == 'css') and self.config.css_dir):
+        sprite_output_path = self.config.css_dir
+    elif ((format == 'img') and self.config.img_dir):
+        sprite_output_path = self.config.img_dir
+    else:
+        sprite_output_path = self.output
+    if (not os.path.exists(sprite_output_path)):
+        os.makedirs(sprite_output_path)
+    return sprite_output_path

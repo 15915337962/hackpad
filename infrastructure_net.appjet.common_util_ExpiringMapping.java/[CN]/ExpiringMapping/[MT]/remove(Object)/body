@@ -1,0 +1,7 @@
+{
+  TimeStampedValue old=keyToValue.get(key);
+  if (old != null) {
+    keyToValue.remove(key);
+    timeToKey.remove(old.getTimeStamp());
+  }
+}

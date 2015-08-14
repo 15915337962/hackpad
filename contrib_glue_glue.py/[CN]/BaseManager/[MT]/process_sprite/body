@@ -1,0 +1,4 @@
+def process_sprite(self, path, name):
+    'Create a new Sprite using this path and name and append it to the\n        sprites list.\n\n        :param path: Sprite path.\n        :param name: Sprite name.\n        '
+    sprite = Sprite(name=name, path=path, manager=self)
+    self.sprites.append(sprite)

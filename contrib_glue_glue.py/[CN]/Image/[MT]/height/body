@@ -1,0 +1,4 @@
+@cached_property
+def height(self):
+    'Return Image height'
+    return self.image.size[1]

@@ -1,0 +1,4 @@
+def prev_image(self, event=None):
+    self.index = max(0, (self.index - 1))
+    self.draw_image()
+    self.update_button_states()

@@ -1,0 +1,35 @@
+{
+  CompilerEnvirons env=new CompilerEnvirons();
+  Parser parser=new Parser(env,reporter);
+  parser.parse(in,null,1);
+  String source=parser.getEncodedSource();
+  int offset=0;
+  int length=source.length();
+  ArrayList tokens=new ArrayList();
+  StringBuffer sb=new StringBuffer();
+  while (offset < length) {
+    int tt=source.charAt(offset++);
+switch (tt) {
+case Token.SPECIALCOMMENT:
+case Token.NAME:
+case Token.REGEXP:
+case Token.STRING:
+      sb.setLength(0);
+    offset=printSourceString(source,offset,sb);
+  tokens.add(new JavaScriptToken(tt,sb.toString()));
+break;
+case Token.NUMBER:
+sb.setLength(0);
+offset=printSourceNumber(source,offset,sb);
+tokens.add(new JavaScriptToken(tt,sb.toString()));
+break;
+default :
+String literal=(String)literals.get(new Integer(tt));
+if (literal != null) {
+tokens.add(new JavaScriptToken(tt,literal));
+}
+break;
+}
+}
+return tokens;
+}

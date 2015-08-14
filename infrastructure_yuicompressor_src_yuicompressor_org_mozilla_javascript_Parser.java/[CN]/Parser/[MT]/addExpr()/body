@@ -1,0 +1,14 @@
+{
+  Node pn=mulExpr();
+  for (; ; ) {
+    int tt=peekToken();
+    if (tt == Token.ADD || tt == Token.SUB) {
+      consumeToken();
+      decompiler.addToken(tt);
+      pn=nf.createBinary(tt,pn,mulExpr());
+      continue;
+    }
+    break;
+  }
+  return pn;
+}

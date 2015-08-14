@@ -1,0 +1,13 @@
+{
+  ArrayList result=new ArrayList();
+  Enumeration elements=identifiers.elements();
+  while (elements.hasMoreElements()) {
+    JavaScriptIdentifier identifier=(JavaScriptIdentifier)elements.nextElement();
+    String mungedValue=identifier.getMungedValue();
+    if (mungedValue == null) {
+      mungedValue=identifier.getValue();
+    }
+    result.add(mungedValue);
+  }
+  return result;
+}

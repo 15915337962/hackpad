@@ -1,0 +1,33 @@
+{
+  if (getter != null) {
+    if (getter instanceof MemberBox) {
+      MemberBox nativeGetter=(MemberBox)getter;
+      Object getterThis;
+      Object[] args;
+      if (nativeGetter.delegateTo == null) {
+        getterThis=start;
+        args=ScriptRuntime.emptyArgs;
+      }
+ else {
+        getterThis=nativeGetter.delegateTo;
+        args=new Object[]{start};
+      }
+      return nativeGetter.invoke(getterThis,args);
+    }
+ else {
+      Function f=(Function)getter;
+      Context cx=Context.getContext();
+      return f.call(cx,f.getParentScope(),start,ScriptRuntime.emptyArgs);
+    }
+  }
+  if (value instanceof LazilyLoadedCtor) {
+    LazilyLoadedCtor initializer=(LazilyLoadedCtor)value;
+    try {
+      initializer.init();
+    }
+  finally {
+      value=initializer.getValue();
+    }
+  }
+  return value;
+}

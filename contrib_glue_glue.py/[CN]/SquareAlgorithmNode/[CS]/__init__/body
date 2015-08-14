@@ -1,0 +1,9 @@
+def __init__(self, x=0, y=0, width=0, height=0, used=False, down=None, right=None):
+    'Node constructor.\n\n        :param x: X coordinate.\n        :param y: Y coordinate.\n        :param width: Image width.\n        :param height: Image height.\n        :param used: Flag to determine if the node is used.\n        :param down: Down :class:`~Node`.\n        :param right Right :class:`~Node`.\n        '
+    self.x = x
+    self.y = y
+    self.width = width
+    self.height = height
+    self.used = used
+    self.right = right
+    self.down = down

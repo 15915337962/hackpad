@@ -1,0 +1,17 @@
+{
+  Node pn=unaryExpr();
+  for (; ; ) {
+    int tt=peekToken();
+switch (tt) {
+case Token.MUL:
+case Token.DIV:
+case Token.MOD:
+      consumeToken();
+    decompiler.addToken(tt);
+  pn=nf.createBinary(tt,pn,unaryExpr());
+continue;
+}
+break;
+}
+return pn;
+}

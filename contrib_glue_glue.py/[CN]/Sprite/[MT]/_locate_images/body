@@ -1,0 +1,15 @@
+def _locate_images(self):
+    "Return all valid images within a folder.\n\n        All files with a extension not included i\n        (png, jpg, jpeg and gif) or beginning with '.' will be ignored.\n\n        If the folder doesn't contain any valid image it will raise\n        :class:`~MultipleImagesWithSameNameError`\n\n        The list of images will be ordered using the desired ordering\n        algorithm. The default is 'maxside'.\n        "
+    extensions = '|'.join(VALID_IMAGE_EXTENSIONS)
+    extension_re = re.compile(('.+\\.(%s)$' % extensions), re.IGNORECASE)
+    files = sorted(os.listdir(self.path))
+    images = []
+    for (root, dirs, files) in os.walk(self.path, followlinks=self.config.follow_links):
+        for f in sorted(files):
+            if ((not f.startswith('.')) and extension_re.match(f)):
+                images.append(Image(f, path=os.path.join(root, f), sprite=self))
+        if (not self.config.recursive):
+            break
+    if (not images):
+        raise SourceImagesNotFoundError(self.path)
+    return images

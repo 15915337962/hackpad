@@ -1,0 +1,6 @@
+def __get_reference(self, ratio):
+    ' Return the reference @Nx for this ratio.\n\n        :param ratio: Ratio.\n        '
+    reference = (('@%.1fx' % ratio) if (int(ratio) != ratio) else ('@%ix' % ratio))
+    if (reference == '@1x'):
+        reference = ''
+    return reference

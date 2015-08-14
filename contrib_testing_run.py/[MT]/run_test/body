@@ -1,0 +1,53 @@
+def run_test(driver, browser_size, cookie_domain, cookie_login_domain, cookie_login_name, cookie_login_value, config, browser, main_test, is_mobile):
+    test_section = ''
+    try:
+        try:
+            try:
+                driver.set_window_position(0, 0)
+                driver.set_window_size(int(browser_size[0]), int(browser_size[1]))
+                driver.set_window_position(0, 0)
+            except:
+                pass
+            if cookie_domain:
+                driver.get(cookie_domain)
+                driver.add_cookie({'domain': cookie_login_domain, 'name': cookie_login_name, 'expires': 2114380800000, 'value': cookie_login_value, })
+            for section in config.sections():
+                if (section == 'general'):
+                    continue
+                if (args.test and (section != args.test)):
+                    continue
+                test_section = section
+                print ((((((((blue + browser) + ': ') + orange) + main_test) + ': ') + end_color) + section) + end_color)
+                url = config.get(section, 'url')
+                if config.has_option(section, 'js'):
+                    js = config.get(section, 'js')
+                else:
+                    js = ''
+                if config.has_option(section, 'wait'):
+                    wait = config.get(section, 'wait')
+                else:
+                    wait = None
+                driver.get(url)
+                try:
+                    driver.execute_script(((((((((((bilite_js + ';') + sendkeys_js) + ';') + hackpad_js) + ';') + '$.isReady ? (function() {') + js) + '})() : $(function() {') + js) + '});'))
+                    if wait:
+                        driver.find_element_by_css_selector(wait)
+                except:
+                    pass
+                time.sleep(3)
+                test_result_dir = os.path.join(screenshots_results_dir, browser)
+                if (not os.path.exists(test_result_dir)):
+                    os.makedirs(test_result_dir)
+                screenshot_path = os.path.join(test_result_dir, (((main_test + '_') + section) + '.png'))
+                driver.save_screenshot(screenshot_path)
+                if is_mobile:
+                    screenshot = Image.open(screenshot_path)
+                    crop_length = (65 if (browser.find('iPad') != (-1)) else 25)
+                    cropped_image = screenshot.crop((0, crop_length, screenshot.size[0], screenshot.size[1]))
+                    cropped_image.save(screenshot_path, 'png')
+        except Exception as ex:
+            print ex
+            print  >> sys.stderr, (((((((red + 'Error! Selenium failed completely: ') + end_color) + browser) + ': ') + main_test) + ': ') + test_section)
+            pass
+    finally:
+        driver.quit()

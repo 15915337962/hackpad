@@ -1,0 +1,66 @@
+def save_image(self):
+    'Create the image file for this sprite.'
+    if self.config.no_img:
+        return
+    ratios_to_process = []
+    for ratio in self.ratios:
+        sprite_image_path = self.image_path(ratio)
+        try:
+            assert (not self.config.force)
+            existing_sprite = PImage.open(sprite_image_path)
+            assert (existing_sprite.info['Software'] == ('glue-%s' % __version__))
+            assert (existing_sprite.info['Comment'] == self.hash)
+            already_created = True
+        except Exception:
+            already_created = False
+        if (not already_created):
+            ratios_to_process.append(ratio)
+    if (not ratios_to_process):
+        self.manager.log(("Already exists '%s' image file..." % self.name))
+        return
+    self.manager.log(("Creating '%s' image file..." % self.name))
+    self.process()
+    (width, height) = self.canvas_size
+    canvas = PImage.new('RGBA', (width, height), (0, 0, 0, 0))
+    margin = int(self.config.margin)
+    for image in self.images:
+        canvas.paste(image.image, (round_up((image.x + ((image.padding[3] + margin) * self.max_ratio))), round_up((image.y + ((image.padding[0] + margin) * self.max_ratio)))))
+    meta = PngImagePlugin.PngInfo()
+    meta.add_text('Software', ('glue-%s' % __version__))
+    meta.add_text('Comment', self.hash)
+    kwargs = dict(optimize=False, pnginfo=meta)
+    if self.config.png8:
+        alpha = canvas.split()[(-1)]
+        canvas = canvas.convert('RGB').convert('P', palette=PImage.ADAPTIVE, colors=255)
+        mask = PImage.eval(alpha, (lambda a: (255 if (a <= 128) else 0)))
+        canvas.paste(255, mask)
+        kwargs.update({'transparency': 255, })
+    for ratio in ratios_to_process:
+        sprite_image_path = self.image_path(ratio)
+        save_full_size = (lambda : canvas.save(sprite_image_path, **kwargs))
+        if (self.max_ratio != ratio):
+
+            def pil_save():
+                reduced_canvas = canvas.resize((round_up(((width / self.max_ratio) * ratio)), round_up(((height / self.max_ratio) * ratio))), PImage.ANTIALIAS)
+                reduced_canvas.save(sprite_image_path, **kwargs)
+            if self.config.imagemagick:
+
+                def save():
+                    save_full_size()
+                    data = {'path': sprite_image_path, 'imagemagickpath': self.config.imagemagickpath, 'ratio': ((100.0 / self.max_ratio) * ratio), }
+                    command = [('%(imagemagickpath)s %(path)s -resize %(ratio)s%% %(path)s' % data)]
+                    error = subprocess.call(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+                    if error:
+                        self.manager.log('Error: ImageMagic has failed, using Pillow to scale the sprite.')
+                        pil_save()
+            else:
+                save = pil_save
+        else:
+            save = save_full_size
+        save()
+        if self.config.optipng:
+            command = [('%s %s' % (self.config.optipngpath, sprite_image_path))]
+            error = subprocess.call(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+            if error:
+                self.manager.log('Error: optipng has failed, reverting to the original file.')
+                save()

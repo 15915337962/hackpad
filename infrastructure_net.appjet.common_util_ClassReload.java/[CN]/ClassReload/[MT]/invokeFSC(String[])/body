@@ -1,0 +1,33 @@
+{
+  try {
+    Class<?> fsc=Class.forName("scala.tools.nsc.StandardCompileClient");
+    Object compiler=fsc.newInstance();
+    Method main0Method=fsc.getMethod("main0",String[].class);
+    return (Integer)main0Method.invoke(compiler,(Object)args);
+  }
+ catch (  ClassNotFoundException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InstantiationException e) {
+    throw new RuntimeException(e);
+  }
+catch (  NoSuchMethodException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InvocationTargetException e) {
+    Throwable origThrowable=e.getCause();
+    if (origThrowable == null)     throw new RuntimeException(e);
+ else     if (origThrowable instanceof Error) {
+      throw (Error)origThrowable;
+    }
+ else     if (origThrowable instanceof RuntimeException) {
+      throw (RuntimeException)origThrowable;
+    }
+ else {
+      throw new RuntimeException(origThrowable);
+    }
+  }
+}

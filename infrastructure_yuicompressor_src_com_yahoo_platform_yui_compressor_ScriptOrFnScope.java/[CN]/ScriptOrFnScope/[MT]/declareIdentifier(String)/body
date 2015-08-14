@@ -1,0 +1,8 @@
+{
+  JavaScriptIdentifier identifier=(JavaScriptIdentifier)identifiers.get(symbol);
+  if (identifier == null) {
+    identifier=new JavaScriptIdentifier(symbol,this);
+    identifiers.put(symbol,identifier);
+  }
+  return identifier;
+}

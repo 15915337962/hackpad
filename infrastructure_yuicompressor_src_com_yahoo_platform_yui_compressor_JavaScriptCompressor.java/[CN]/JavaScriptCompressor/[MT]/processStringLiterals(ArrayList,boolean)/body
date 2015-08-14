@@ -1,0 +1,46 @@
+{
+  String tv;
+  int i, length=tokens.size();
+  JavaScriptToken token, prevToken, nextToken;
+  if (merge) {
+    for (i=0; i < length; i++) {
+      token=(JavaScriptToken)tokens.get(i);
+switch (token.getType()) {
+case Token.ADD:
+        if (i > 0 && i < length) {
+          prevToken=(JavaScriptToken)tokens.get(i - 1);
+          nextToken=(JavaScriptToken)tokens.get(i + 1);
+          if (prevToken.getType() == Token.STRING && nextToken.getType() == Token.STRING && (i == length - 1 || ((JavaScriptToken)tokens.get(i + 2)).getType() != Token.DOT)) {
+            tokens.set(i - 1,new JavaScriptToken(Token.STRING,prevToken.getValue() + nextToken.getValue()));
+            tokens.remove(i + 1);
+            tokens.remove(i);
+            i=i - 1;
+            length=length - 2;
+            break;
+          }
+        }
+    }
+  }
+}
+for (i=0; i < length; i++) {
+  token=(JavaScriptToken)tokens.get(i);
+  if (token.getType() == Token.STRING || token.getType() == Token.REGEXP) {
+    tv=token.getValue();
+    if (token.getType() == Token.STRING) {
+      char quotechar;
+      int singleQuoteCount=countChar(tv,'\'');
+      int doubleQuoteCount=countChar(tv,'"');
+      if (doubleQuoteCount <= singleQuoteCount) {
+        quotechar='"';
+      }
+ else {
+        quotechar='\'';
+      }
+      tv=quotechar + escapeString(tv,quotechar) + quotechar;
+    }
+    tv=tv.replace("<script","\\x3cscript");
+    tv=tv.replace("</script","\\x3c/script");
+    tokens.set(i,new JavaScriptToken(token.getType(),tv));
+  }
+}
+}

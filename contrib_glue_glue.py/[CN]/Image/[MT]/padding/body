@@ -1,0 +1,7 @@
+@cached_property
+def padding(self):
+    'Return the padding for this image based on the filename and\n        the sprite settings file.\n\n        * ``filename.png`` will have the default padding ``10px``.\n        * ``filename_20.png`` -> ``20px`` all around the image.\n        * ``filename_1-2-3.png`` -> ``1px 2px 3px 2px`` around the image.\n        * ``filename_1-2-3-4.png`` -> ``1px 2px 3px 4px`` around the image.\n\n        '
+    padding = self._padding_info
+    if ((len(padding) == 0) or self.sprite.manager.config.ignore_filename_paddings):
+        padding = self.sprite.config.padding
+    return self._generate_padding(padding)

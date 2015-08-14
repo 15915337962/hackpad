@@ -1,0 +1,8 @@
+{
+  String message=ScriptRuntime.getMessage1(messageId,messageArg);
+  if (compilerEnv.reportWarningAsError()) {
+    ++syntaxErrorCount;
+    errorReporter.error(message,sourceURI,ts.getLineno(),ts.getLine(),ts.getOffset());
+  }
+ else   errorReporter.warning(message,sourceURI,ts.getLineno(),ts.getLine(),ts.getOffset());
+}

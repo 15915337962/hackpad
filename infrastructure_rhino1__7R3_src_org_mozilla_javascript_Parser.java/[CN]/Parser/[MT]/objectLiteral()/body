@@ -1,0 +1,84 @@
+{
+  int pos=ts.tokenBeg, lineno=ts.lineno;
+  int afterComma=-1;
+  List<ObjectProperty> elems=new ArrayList<ObjectProperty>();
+  Set<String> propertyNames=new HashSet<String>();
+  commaLoop:   for (; ; ) {
+    String propertyName=null;
+    int tt=peekToken();
+    String jsdoc=getAndResetJsDoc();
+switch (tt) {
+case Token.NAME:
+case Token.STRING:
+      afterComma=-1;
+    saveNameTokenData(ts.tokenBeg,ts.getString(),ts.lineno);
+  consumeToken();
+StringLiteral stringProp=null;
+if (tt == Token.STRING) {
+stringProp=createStringLiteral();
+}
+Name name=createNameNode();
+propertyName=ts.getString();
+int ppos=ts.tokenBeg;
+if ((tt == Token.NAME && peekToken() == Token.NAME && ("get".equals(propertyName) || "set".equals(propertyName)))) {
+consumeToken();
+name=createNameNode();
+name.setJsDoc(jsdoc);
+ObjectProperty objectProp=getterSetterProperty(ppos,name,"get".equals(propertyName));
+elems.add(objectProp);
+propertyName=objectProp.getLeft().getString();
+}
+ else {
+AstNode pname=stringProp != null ? stringProp : name;
+pname.setJsDoc(jsdoc);
+elems.add(plainProperty(pname,tt));
+}
+break;
+case Token.NUMBER:
+consumeToken();
+afterComma=-1;
+AstNode nl=new NumberLiteral(ts.tokenBeg,ts.getString(),ts.getNumber());
+nl.setJsDoc(jsdoc);
+propertyName=ts.getString();
+elems.add(plainProperty(nl,tt));
+break;
+case Token.RC:
+if (afterComma != -1 && compilerEnv.getWarnTrailingComma()) warnTrailingComma("msg.extra.trailing.comma",pos,elems,afterComma);
+break commaLoop;
+default :
+if (compilerEnv.isReservedKeywordAsIdentifier()) {
+propertyName=Token.keywordToName(tt);
+if (propertyName != null) {
+afterComma=-1;
+saveNameTokenData(ts.tokenBeg,propertyName,ts.lineno);
+consumeToken();
+AstNode pname=createNameNode();
+pname.setJsDoc(jsdoc);
+elems.add(plainProperty(pname,tt));
+break;
+}
+}
+reportError("msg.bad.prop");
+break;
+}
+if (this.inUseStrictDirective) {
+if (propertyNames.contains(propertyName)) {
+addError("msg.dup.obj.lit.prop.strict",propertyName);
+}
+propertyNames.add(propertyName);
+}
+getAndResetJsDoc();
+jsdoc=null;
+if (matchToken(Token.COMMA)) {
+afterComma=ts.tokenEnd;
+}
+ else {
+break commaLoop;
+}
+}
+mustMatchToken(Token.RC,"msg.no.brace.prop");
+ObjectLiteral pn=new ObjectLiteral(pos,ts.tokenEnd - pos);
+pn.setElements(elems);
+pn.setLineno(lineno);
+return pn;
+}

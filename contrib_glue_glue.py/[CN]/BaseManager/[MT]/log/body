@@ -1,0 +1,4 @@
+def log(self, message):
+    'Print the message if necessary.\n\n        :param message: Message to log.\n        '
+    if (not self.config.quiet):
+        print message

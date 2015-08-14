@@ -1,0 +1,33 @@
+{
+  if (jarPath != null) {
+    return jarPath;
+  }
+  String classname=JarClassLoader.class.getName().replace('.','/') + ".class";
+  String classpath=System.getProperty("java.class.path");
+  String classpaths[]=classpath.split(System.getProperty("path.separator"));
+  for (int i=0; i < classpaths.length; i++) {
+    String path=classpaths[i];
+    JarFile jarFile=null;
+    JarEntry jarEntry=null;
+    try {
+      jarFile=new JarFile(path);
+      jarEntry=findJarEntry(jarFile,classname);
+    }
+ catch (    IOException ioe) {
+    }
+ finally {
+      if (jarFile != null) {
+        try {
+          jarFile.close();
+        }
+ catch (        IOException ioe) {
+        }
+      }
+    }
+    if (jarEntry != null) {
+      jarPath=path;
+      break;
+    }
+  }
+  return jarPath;
+}

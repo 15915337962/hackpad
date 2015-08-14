@@ -1,0 +1,13 @@
+@cached_property
+def hash(self):
+    ' Return a hash of this sprite. In order to detect any change on\n        the source images  it use the data, order and path of each image.\n        In the same way it use this sprite settings as part of the hash.\n        '
+    hash_list = []
+    for image in sorted(self.images, key=(lambda i: i.path)):
+        hash_list.append(image.path)
+        hash_list.append(image._data)
+    for key in DEFAULT_SETTINGS:
+        if (key in ['html', 'quiet', 'force']):
+            continue
+        hash_list.append(key)
+        hash_list.append(str(getattr(self.config, key)))
+    return hashlib.sha1(''.join(hash_list)).hexdigest()[:10]
