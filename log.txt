@@ -1,0 +1,47 @@
+INFO:kenja.converter:/tmp/tmpcid5nv
+INFO:kenja.converter:create parser processes...
+INFO:kenja.converter:waiting parser processes
+INFO:kenja.converter:convert a git repository to a  historage...
+INFO:kenja.converter:[0/42] convert b03e832c78721f58049b2c37957fce86015a064e to: /hr/.git
+INFO:kenja.converter:[1/42] convert f71bb1d32e0061ed82783ad77617241bc2d56c96 to: /hr/.git
+INFO:kenja.converter:[2/42] convert 4c8ad018f2ad4eaa6c513c0e672d3e209227605c to: /hr/.git
+INFO:kenja.converter:[3/42] convert 5f80c0009b214c594b0fb8e6e95209fa03c96ba3 to: /hr/.git
+INFO:kenja.converter:[4/42] convert f024292eea36583df0740991531455e9adf5cbd9 to: /hr/.git
+INFO:kenja.converter:[5/42] convert 9c42abdc8451946b20260d3c9dc3754c28b5fe74 to: /hr/.git
+INFO:kenja.converter:[6/42] convert 7913bf351911a3c4dfaa8678ed1798b853cef396 to: /hr/.git
+INFO:kenja.converter:[7/42] convert 582649778de090c2953cf488e6cff82c9f703edc to: /hr/.git
+INFO:kenja.converter:[8/42] convert 97a14852a69a384cd4a4d22daa02791c9eb36c47 to: /hr/.git
+INFO:kenja.converter:[9/42] convert 115d7ae1b9b91b4658f18d8d8d79f9e81121be17 to: /hr/.git
+INFO:kenja.converter:[10/42] convert 1bce96561d67595807f975ce95e8aa9144630e60 to: /hr/.git
+INFO:kenja.converter:[11/42] convert 8235d75a2f242490b676e7b628170653051f46ab to: /hr/.git
+INFO:kenja.converter:[12/42] convert fa551eb9428140cfc1988db4b6a3283592fcb7e3 to: /hr/.git
+INFO:kenja.converter:[13/42] convert eafe81f345aa5ee2706051989fae4f6fc340d6c9 to: /hr/.git
+INFO:kenja.converter:[14/42] convert 309e77ac18782a4e66d65fb941302470efe24aec to: /hr/.git
+INFO:kenja.converter:[15/42] convert 54a312f973336ad7939de565bfa66f60dea1a17c to: /hr/.git
+INFO:kenja.converter:[16/42] convert 43d8862f8fa3ef25c108c60d70aded0f2e6f0794 to: /hr/.git
+INFO:kenja.converter:[17/42] convert feaa7a26d5d69547346a13bf951a94a2b7338cc1 to: /hr/.git
+INFO:kenja.converter:[18/42] convert 3d6dd2c1ad267e98a3591c6f0c8a737681d9bbd1 to: /hr/.git
+INFO:kenja.converter:[19/42] convert cfc8bd89b550f3509a97f0bf7ab95ed1849568df to: /hr/.git
+INFO:kenja.converter:[20/42] convert 1a59f89e1ad6736934ba2f03dca034cea8f7db7a to: /hr/.git
+INFO:kenja.converter:[21/42] convert c5a7f69fa47315f307c9c7d2509c6d404333a1be to: /hr/.git
+INFO:kenja.converter:[22/42] convert b06c62ce2ba41979b55a8588acc1c556e3237dd9 to: /hr/.git
+INFO:kenja.converter:[23/42] convert 57878e2979a991fda4139181c577877521b8cf65 to: /hr/.git
+INFO:kenja.converter:[24/42] convert 50318239967edf40ac43d778f0d4c396226325ab to: /hr/.git
+INFO:kenja.converter:[25/42] convert e6849d89e789ef5697814fca789440b217d092ab to: /hr/.git
+INFO:kenja.converter:[26/42] convert 06ce45692de185a89a03c4db8aed992839323a2b to: /hr/.git
+INFO:kenja.converter:[27/42] convert d9e34b6bbe7a66ad6c2e4c46d4ebba005a9ba1ba to: /hr/.git
+INFO:kenja.converter:[28/42] convert 13b7193f58d47f81e6a901f916333da6d5f5df63 to: /hr/.git
+INFO:kenja.converter:[29/42] convert 45ae92fdba53b324335d836286110431b34faa5b to: /hr/.git
+INFO:kenja.converter:[30/42] convert e1b8de537319c5102ba54cf2df8a0703d675515a to: /hr/.git
+INFO:kenja.converter:[31/42] convert 1c8029d51465d30dddcb65a0ba618b4c308d5620 to: /hr/.git
+INFO:kenja.converter:[32/42] convert 6dd824c7ba27617aaa0bff9b50bcf2283647b736 to: /hr/.git
+INFO:kenja.converter:[33/42] convert c99add3bfe9e9489e6c0ca54d620ff23038ee791 to: /hr/.git
+INFO:kenja.converter:[34/42] convert afa1246584fd0e14248bad504dedca3f5f5ee7b8 to: /hr/.git
+INFO:kenja.converter:[35/42] convert 90de3f9130a1238985c67b3b6b4dcf59a06b95c8 to: /hr/.git
+INFO:kenja.converter:[36/42] convert 8d95c7447978a79584ce04efb0ad94afd1fd46a2 to: /hr/.git
+INFO:kenja.converter:[37/42] convert b18f6f30ed484b6e2690a0214785c13e80312c33 to: /hr/.git
+INFO:kenja.converter:[38/42] convert cd5889d680d812f0e83ac8cf2f1d3b5bd99fdac3 to: /hr/.git
+INFO:kenja.converter:[39/42] convert c0f57cddc9d1a7976067c26bb09cb48a15646458 to: /hr/.git
+INFO:kenja.converter:[40/42] convert d61394b041a2677ad7b2e617ab175551816b0bc1 to: /hr/.git
+INFO:kenja.converter:[41/42] convert 521b7238ab8061fcc7a2c96b261cbb873341b1c6 to: /hr/.git
+INFO:kenja.converter:completed!
